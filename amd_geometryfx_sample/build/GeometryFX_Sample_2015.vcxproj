@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{947E81B0-804C-75B6-69E0-E5DC554D511B}</ProjectGuid>
+    <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>GeometryFX_Sample</RootNamespace>
+    <ProjectName>GeometryFX_Sample</ProjectName>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\bin\</OutDir>
+    <IntDir>Desktop_2015\x64\Debug\</IntDir>
+    <TargetName>GeometryFX_Sample_Debug_2015</TargetName>
+    <TargetExt>.exe</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\bin\</OutDir>
+    <IntDir>Desktop_2015\x64\Release\</IntDir>
+    <TargetName>GeometryFX_Sample_Release_2015</TargetName>
+    <TargetExt>.exe</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <PreprocessorDefinitions>ASSIMP_DLL;AMD_GEOMETRYFX_COMPILE_DYNAMIC_LIB=1;WIN32;_DEBUG;DEBUG;PROFILE;_WINDOWS;_WIN32_WINNT=0x0601;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\src\ResourceFiles;..\..\AMD_GeometryFX\inc;..\..\AMD_LIB\inc;..\..\AMD_SDK\inc;..\..\AGS_LIB\inc;..\..\DXUT\Core;..\..\DXUT\Optional;..\..\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <FloatingPointModel>Fast</FloatingPointModel>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>ASSIMP_DLL;AMD_GEOMETRYFX_COMPILE_DYNAMIC_LIB=1;WIN32;_DEBUG;DEBUG;PROFILE;_WINDOWS;_WIN32_WINNT=0x0601;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\src\ResourceFiles;..\..\AMD_GeometryFX\inc;..\..\AMD_LIB\inc;..\..\AMD_SDK\inc;..\..\AGS_LIB\inc;..\..\DXUT\Core;..\..\DXUT\Optional;..\..\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>assimp_x64_2015.lib;amd_ags_x64.lib;d3dcompiler.lib;dxguid.lib;winmm.lib;comctl32.lib;Usp10.lib;Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\assimp\lib;..\..\AGS_LIB\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <TreatLinkerWarningAsErrors>true</TreatLinkerWarningAsErrors>
+    </Link>
+    <Manifest>
+      <AdditionalManifestFiles>../src/ResourceFiles/dpiaware.manifest %(AdditionalManifestFiles)</AdditionalManifestFiles>
+    </Manifest>
+    <PostBuildEvent>
+      <Command>if not exist "..\bin\d3dcompiler_47.dll" if exist "$(ProgramFiles)\Windows Kits\8.1\Redist\D3D\x64\d3dcompiler_47.dll" xcopy "$(ProgramFiles)\Windows Kits\8.1\Redist\D3D\x64\d3dcompiler_47.dll" "..\bin" /H /R /Y &gt; nul
+if exist "..\..\AMD_GeometryFX\lib\GPUOpen_GeometryFX_x64d.dll" xcopy "..\..\AMD_GeometryFX\lib\GPUOpen_GeometryFX_x64d.dll"  "..\bin" /H /R /Y &gt; nul
+if exist "..\..\AMD_GeometryFX\lib\GPUOpen_GeometryFX_x64.dll"  xcopy "..\..\AMD_GeometryFX\lib\GPUOpen_GeometryFX_x64.dll"   "..\bin" /H /R /Y &gt; nul
+xcopy "..\..\AGS_LIB\lib\amd_ags_x64.dll"  "..\bin" /H /R /Y &gt; nul
+xcopy "..\..\assimp\lib\assimp_x64_2015.dll"  "..\bin" /H /R /Y &gt; nul</Command>
+      <Message>Copying dependencies...</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <PreprocessorDefinitions>ASSIMP_DLL;AMD_GEOMETRYFX_COMPILE_DYNAMIC_LIB=1;WIN32;NDEBUG;PROFILE;_WINDOWS;_WIN32_WINNT=0x0601;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\src\ResourceFiles;..\..\AMD_GeometryFX\inc;..\..\AMD_LIB\inc;..\..\AMD_SDK\inc;..\..\AGS_LIB\inc;..\..\DXUT\Core;..\..\DXUT\Optional;..\..\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>ASSIMP_DLL;AMD_GEOMETRYFX_COMPILE_DYNAMIC_LIB=1;WIN32;NDEBUG;PROFILE;_WINDOWS;_WIN32_WINNT=0x0601;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\src\ResourceFiles;..\..\AMD_GeometryFX\inc;..\..\AMD_LIB\inc;..\..\AMD_SDK\inc;..\..\AGS_LIB\inc;..\..\DXUT\Core;..\..\DXUT\Optional;..\..\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>assimp_x64_2015.lib;amd_ags_x64.lib;d3dcompiler.lib;dxguid.lib;winmm.lib;comctl32.lib;Usp10.lib;Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\assimp\lib;..\..\AGS_LIB\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <TreatLinkerWarningAsErrors>true</TreatLinkerWarningAsErrors>
+    </Link>
+    <Manifest>
+      <AdditionalManifestFiles>../src/ResourceFiles/dpiaware.manifest %(AdditionalManifestFiles)</AdditionalManifestFiles>
+    </Manifest>
+    <PostBuildEvent>
+      <Command>if not exist "..\bin\d3dcompiler_47.dll" if exist "$(ProgramFiles)\Windows Kits\8.1\Redist\D3D\x64\d3dcompiler_47.dll" xcopy "$(ProgramFiles)\Windows Kits\8.1\Redist\D3D\x64\d3dcompiler_47.dll" "..\bin" /H /R /Y &gt; nul
+if exist "..\..\AMD_GeometryFX\lib\GPUOpen_GeometryFX_x64d.dll" xcopy "..\..\AMD_GeometryFX\lib\GPUOpen_GeometryFX_x64d.dll"  "..\bin" /H /R /Y &gt; nul
+if exist "..\..\AMD_GeometryFX\lib\GPUOpen_GeometryFX_x64.dll"  xcopy "..\..\AMD_GeometryFX\lib\GPUOpen_GeometryFX_x64.dll"   "..\bin" /H /R /Y &gt; nul
+xcopy "..\..\AGS_LIB\lib\amd_ags_x64.dll"  "..\bin" /H /R /Y &gt; nul
+xcopy "..\..\assimp\lib\assimp_x64_2015.dll"  "..\bin" /H /R /Y &gt; nul</Command>
+      <Message>Copying dependencies...</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\ResourceFiles\resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\GeometryFX_Sample.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\ResourceFiles\dpiaware.manifest" />
+    <None Include="..\src\Shaders\GeometryFX_Sample.hlsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\src\ResourceFiles\GeometryFX_Sample.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\AMD_LIB\build\AMD_LIB_2015.vcxproj">
+      <Project>{0D2AEA47-7909-69E3-8221-F4B9EE7FCF44}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DXUT\Optional\DXUTOpt_2015.vcxproj">
+      <Project>{61B333C2-C4F7-4CC1-A9BF-83F6D95588EB}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DXUT\Core\DXUT_2015.vcxproj">
+      <Project>{85344B7F-5AA0-4E12-A065-D1333D11F6CA}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\AMD_GeometryFX\build\AMD_GeometryFX_2015.vcxproj">
+      <Project>{E05C77A9-1EE7-4F02-AF03-575FB4829AC5}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\AMD_SDK\build\AMD_SDK_2015.vcxproj">
+      <Project>{EBB939DC-98E4-49DF-B1F1-D2E80A11F60A}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

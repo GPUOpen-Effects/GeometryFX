@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="inc">
+      <UniqueIdentifier>{1F80880B-8B89-887C-1405-9F7C800D947C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Shaders">
+      <UniqueIdentifier>{06ADC7FB-7262-40F1-FB56-3AC8670B37F5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\Shaders\AMD_GeometryFX_Filtering.hlsl">
+      <Filter>src\Shaders</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\inc\AMD_GeometryFX.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\AMD_GeometryFX_Filtering.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\AMD_GeometryFX_Utility.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\GeometryFXMesh.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\GeometryFXMeshManager.h">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\AMD_GeometryFX_Filtering.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\AMD_GeometryFX_Utility.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\GeometryFXMesh.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\GeometryFXMeshManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
