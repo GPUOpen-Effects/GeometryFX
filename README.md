@@ -6,6 +6,7 @@ The GeometryFX library provides convenient access to compute-based triangle filt
 
 ### Prerequisites
 * AMD Radeon&trade; GCN-based GPU (HD 7000 series or newer)
+  * Or other DirectX&reg; 11 compatible GPU with Shader Model 5 support 
 * 64-bit Windows&reg; 7 (SP1 with the [Platform Update](https://msdn.microsoft.com/en-us/library/windows/desktop/jj863687.aspx)), Windows&reg; 8.1, or Windows&reg; 10
 * Visual Studio&reg; 2012, Visual Studio&reg; 2013, or Visual Studio&reg; 2015
 
@@ -33,7 +34,7 @@ A good use case for the GeometryFX library is depth-only rendering of opaque geo
 
 At its core, GeometryFX works by generating an intermediate index buffer which consists of visible triangles only. Intermediate buffers are reused as much as possible to minimize memory usage. GeometryFX also buffers up draw calls to execute the filtering on one batch while the previous batch is being rendered, allowing the filtering to overlap with the actual draw call.
 
-The library makes heavy use of multi-draw indirect. This is a Direct3D 11 driver extension exposed through the AMD GPU Services (AGS) library. It allows multiple draw calls to be prepared on the GPU and executed with a single API call. For more information on AGS, including samples, visit the [AGS SDK repository on GitHub](https://github.com/GPUOpen-LibrariesAndSDKs/AGS_SDK/).
+The library makes heavy use of multi-draw indirect. This is a DirectX 11 driver extension exposed through the AMD GPU Services (AGS) library. It allows multiple draw calls to be prepared on the GPU and executed with a single API call. For more information on AGS, including samples, visit the [AGS SDK repository on GitHub](https://github.com/GPUOpen-LibrariesAndSDKs/AGS_SDK/).
 
 ### The Filters
 
@@ -60,4 +61,4 @@ DXUT and assimp are only used by the sample, not the core library. Only first-pa
 
 ### Attribution
 * AMD, the AMD Arrow logo, Radeon, and combinations thereof are either registered trademarks or trademarks of Advanced Micro Devices, Inc. in the United States and/or other countries.
-* Microsoft, Direct3D, DirectX, Visual Studio, and Windows are either registered trademarks or trademarks of Microsoft Corporation in the United States and/or other countries.
+* Microsoft, DirectX, Visual Studio, and Windows are either registered trademarks or trademarks of Microsoft Corporation in the United States and/or other countries.
