@@ -5,9 +5,12 @@
 *.user
 
 # Build results
+VS*/
 [Dd]esktop_*/
-SAMPLE_NAME_Debug_*.*
-SAMPLE_NAME_Release_*.*
+GeometryFX_Sample_Debug_*.*
+GeometryFX_Sample_Release_*.*
+amd_geometryfx/lib/GPUOpen_GeometryFX_*.*
+amd_geometryfx_sample/bin/
 
 # Visual Studo 2015 cache/options directory
 .vs/
@@ -19,6 +22,7 @@ ipch/
 *.opensdf
 *.sdf
 *.cachefile
+*.opendb
 
 # Visual Studio profiler
 *.psess
