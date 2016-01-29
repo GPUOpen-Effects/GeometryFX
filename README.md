@@ -6,7 +6,7 @@ The GeometryFX library provides convenient access to compute-based triangle filt
 
 ### Prerequisites
 * AMD Radeon&trade; GCN-based GPU (HD 7000 series or newer)
-  * Or other DirectX&reg; 11 compatible GPU with Shader Model 5 support 
+  * Or other DirectX&reg; 11 compatible discrete GPU with Shader Model 5 support 
 * 64-bit Windows&reg; 7 (SP1 with the [Platform Update](https://msdn.microsoft.com/en-us/library/windows/desktop/jj863687.aspx)), Windows&reg; 8.1, or Windows&reg; 10
 * Visual Studio&reg; 2012, Visual Studio&reg; 2013, or Visual Studio&reg; 2015
 
