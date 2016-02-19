@@ -20,8 +20,8 @@
 // THE SOFTWARE.
 //
 
-#ifndef __AMD_TYPES_H__
-#define __AMD_TYPES_H__
+#ifndef AMD_LIB_TYPES_H
+#define AMD_LIB_TYPES_H
 
 namespace AMD
 {
@@ -67,7 +67,7 @@ namespace AMD
   }
 
   // The common return codes
-  typedef enum _RETURN_CODE
+  typedef enum RETURN_CODE_t
   {
     RETURN_CODE_SUCCESS,
     RETURN_CODE_FAIL,
@@ -103,7 +103,7 @@ namespace AMD
 
 #ifndef AMD_DECLARE_CAMERA_TYPE
 # define AMD_DECLARE_CAMERA_TYPE                                                      \
-  typedef struct _Camera                                                              \
+  typedef struct Camera_t                                                             \
   {                                                                                   \
     float4x4                           m_View;                                        \
     float4x4                           m_Projection;                                  \
@@ -125,7 +125,7 @@ namespace AMD
 
 #ifndef AMD_DECLARE_MODEL_TYPE
 # define AMD_DECLARE_MODEL_TYPE                                                       \
-  typedef struct _MODEL                                                               \
+  typedef struct MODEL_t                                                              \
   {                                                                                   \
     float4x4                           m_World;                                       \
     float4x4                           m_World_Inv;                                   \
@@ -144,7 +144,7 @@ namespace AMD
 
 #ifndef AMD_DECLARE_RESOURCE_2D_DESC_TYPE
 # define AMD_DECLARE_RESOURCE_2D_DESC_TYPE                                            \
-  typedef struct _RESOURCE_2D_DESC                                                    \
+  typedef struct RESOURCE_2D_DESC_t                                                   \
   {                                                                                   \
     float2                             m_Size;                                        \
     float2                             m_Size_Inv;                                    \
@@ -177,4 +177,4 @@ namespace AMD
 
 #define AMD_COMPILE_TIME_ASSERT(condition, name) unsigned char g_AMD_CompileTimeAssertExpression ## name [ (condition) ? 1 : -1];
 
-#endif //_AMD_TYPES_H_
+#endif //AMD_LIB_TYPES_H

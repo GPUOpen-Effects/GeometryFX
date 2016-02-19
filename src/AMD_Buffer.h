@@ -20,8 +20,8 @@
 // THE SOFTWARE.
 //
 
-#ifndef __AMD_BUFFER_H__
-#define __AMD_BUFFER_H__
+#ifndef AMD_LIB_BUFFER_H
+#define AMD_LIB_BUFFER_H
 
 #include <d3d11.h>
 #include <assert.h>
@@ -60,4 +60,4 @@ namespace AMD
 }
 
 
-#endif // __AMD_BUFFER_H__
+#endif // AMD_LIB_BUFFER_H

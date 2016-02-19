@@ -27,6 +27,8 @@
 #include "AMD_FullscreenPass.h"
 
 #include "Shaders\inc\VS_FULLSCREEN.inc"
+#include "Shaders\inc\VS_SCREENQUAD.inc"
+
 #include "Shaders\inc\PS_FULLSCREEN.inc"
 
 #pragma warning( disable : 4100 ) // disable unreference formal parameter warnings for /W4 builds
@@ -41,6 +43,16 @@ namespace AMD
             return E_POINTER;
         }
         return pDevice->CreateVertexShader(VS_FULLSCREEN_Data, sizeof(VS_FULLSCREEN_Data), NULL, ppVS);
+    }
+
+    HRESULT CreateScreenQuadPass(ID3D11VertexShader** ppVS, ID3D11Device* pDevice)
+    {
+        if ( pDevice == NULL || ppVS == NULL )
+        {
+            AMD_OUTPUT_DEBUG_STRING("Invalid Device or Vertex Shader pointers in function %s\n", AMD_FUNCTION_NAME);
+            return E_POINTER;
+        }
+        return pDevice->CreateVertexShader(VS_SCREENQUAD_Data, sizeof(VS_SCREENQUAD_Data), NULL, ppVS);
     }
 
     HRESULT CreateFullscreenPass(ID3D11PixelShader** ppPS, ID3D11Device* pDevice)
@@ -108,7 +120,7 @@ namespace AMD
         uint NullStride[8] = { 0 };
         uint NullOffset[8] = { 0 } ;
 
-        if ((pDeviceContext == NULL || pVS == NULL || pPS == NULL || (ppRTVs == NULL && pDSV == NULL && ppUAVs == NULL)))
+        if ((pDeviceContext == NULL || (pVS == NULL && pPS == NULL) || (ppRTVs == NULL && pDSV == NULL && ppUAVs == NULL)))
         {
             AMD_OUTPUT_DEBUG_STRING("Invalid pointer argument in function %s\n", AMD_FUNCTION_NAME);
             return E_POINTER;

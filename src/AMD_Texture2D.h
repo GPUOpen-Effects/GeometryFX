@@ -20,8 +20,8 @@
 // THE SOFTWARE.
 //
 
-#ifndef __AMD_TEXTURE_2D_H__
-#define __AMD_TEXTURE_2D_H__
+#ifndef AMD_LIB_TEXTURE_2D_H
+#define AMD_LIB_TEXTURE_2D_H
 
 #include <d3d11.h>
 

@@ -20,8 +20,8 @@
 // THE SOFTWARE.
 //
 
-#ifndef _AMD_COMMON_H_
-#define _AMD_COMMON_H_
+#ifndef AMD_LIB_COMMON_H
+#define AMD_LIB_COMMON_H
 
 namespace AMD
 {
@@ -35,4 +35,4 @@ namespace AMD
 #endif
 
 
-#endif // _AMD_COMMON_H_
+#endif // AMD_LIB_COMMON_H

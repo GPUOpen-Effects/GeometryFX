@@ -23,7 +23,12 @@
 #include <assert.h>
 
 #include "AMD_LIB.h"
+
+#ifndef AMD_LIB_MINIMAL
 #include "amd_ags.h"
+#endif
+
+#pragma warning( disable : 4100 ) // disable unreferenced formal parameter warnings for /W4 builds
 
 namespace AMD
 {
@@ -127,11 +132,13 @@ namespace AMD
                 subresource_data.pSysMem = data;
                 subresource_data.SysMemPitch = pitch;
 
+#ifndef AMD_LIB_MINIMAL
                 if (agsContext != NULL)
                 {
                     hr = agsDriverExtensions_CreateTexture2D(agsContext, &t2d_desc, data != NULL ? &subresource_data : NULL, &_t2d, (AGSAfrTransferType)cfxTransferType);
                 }
                 else
+#endif
                 {
                     hr = pDevice->CreateTexture2D(&t2d_desc, data != NULL ? &subresource_data : NULL, &_t2d);
                 }

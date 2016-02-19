@@ -20,8 +20,8 @@
 // THE SOFTWARE.
 //
 
-#ifndef __AMD_UNIT_CUBE_H__
-#define __AMD_UNIT_CUBE_H__
+#ifndef AMD_LIB_UNIT_CUBE_H
+#define AMD_LIB_UNIT_CUBE_H
 
 #include <d3d11.h>
 

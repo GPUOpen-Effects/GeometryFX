@@ -20,8 +20,8 @@
 // THE SOFTWARE.
 //
 
-#ifndef __AMD_RAND_H__
-#define __AMD_RAND_H__
+#ifndef AMD_LIB_RAND_H
+#define AMD_LIB_RAND_H
 
 #include "AMD_Types.h"
 
@@ -31,4 +31,4 @@ namespace AMD
   float random_float(uint seed, float a, float b);
 }
 
-#endif //__AMD_RAND_H__
+#endif //AMD_LIB_RAND_H
