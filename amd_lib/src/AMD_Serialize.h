@@ -20,8 +20,8 @@
 // THE SOFTWARE.
 //
 
-#ifndef __AMD_SERIALIZE_H__
-#define __AMD_SERIALIZE_H__
+#ifndef AMD_LIB_SERIALIZE_H
+#define AMD_LIB_SERIALIZE_H
 
 #include "AMD_Types.h"
 
@@ -61,4 +61,4 @@ namespace AMD
 #define AMD_SERIALIZE_STRING_UINT_PTR(x)     #x, (uint  *) &x
 
 
-#endif //__AMD_SERIALIZE_H__
+#endif //AMD_LIB_SERIALIZE_H

@@ -20,8 +20,8 @@
 // THE SOFTWARE.
 //
 
-#ifndef _AMD_LIB_QUATERNION_HLSL_
-#define _AMD_LIB_QUATERNION_HLSL_
+#ifndef AMD_LIB_QUATERNION_HLSL
+#define AMD_LIB_QUATERNION_HLSL
 
 float4 MakeQuaternion(float angle_radian, float3 axis)
 {
@@ -91,4 +91,4 @@ float3 MultWorldInertiaInvAndVector(float4 orientation, float3 inertia, float3 v
   return Rot_InertiaInv_RotT_vec;
 }
 
-#endif // _AMD_LIB_QUATERNION_HLSL_
+#endif // AMD_LIB_QUATERNION_HLSL

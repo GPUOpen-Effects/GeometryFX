@@ -20,8 +20,8 @@
 // THE SOFTWARE.
 //
 
-#ifndef _AMD_FULLSCREEN_PASS_HLSL_
-#define _AMD_FULLSCREEN_PASS_HLSL_
+#ifndef AMD_LIB_FULLSCREEN_PASS_HLSL
+#define AMD_LIB_FULLSCREEN_PASS_HLSL
 
 struct PS_FullscreenInput
 {
@@ -42,6 +42,24 @@ struct PS_FullscreenIndexRTInput
     float2 texCoord : TEXCOORD0;
     uint   rtIndex  : SV_RenderTargetArrayIndex;
 };
+
+// The ScreenQuad shader is used to clear a subregion of a depth map 
+// Cleaning a rectangle in depth map is otherwise problematic
+PS_FullscreenInput vsScreenQuad(uint vertexId : SV_VERTEXID)
+{
+
+    PS_FullscreenInput vertex[6] =
+    {
+        { -1.0f, -1.0f, 1.0f, 1.0f }, { 0.0f, 1.0f },
+        { -1.0f,  1.0f, 1.0f, 1.0f }, { 0.0f, 0.0f },
+        {  1.0f, -1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f },
+        {  1.0f, -1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f },
+        { -1.0f,  1.0f, 1.0f, 1.0f }, { 0.0f, 0.0f },
+        {  1.0f,  1.0f, 1.0f, 1.0f }, { 1.0f, 0.0f },
+    };
+
+    return vertex[vertexId % 6];
+}
 
 PS_FullscreenInput vsFullscreen(uint vertexId : SV_VERTEXID)
 {
@@ -98,4 +116,4 @@ float4 psFullscreen(PS_FullscreenInput In) : SV_Target0
     return g_t2dFullscreen.Sample(g_ssFullscreen, In.texCoord).xyzw;
 }
 
-#endif // _AMD_FULLSCREEN_PASS_HLSL_
+#endif // AMD_LIB_FULLSCREEN_PASS_HLSL
