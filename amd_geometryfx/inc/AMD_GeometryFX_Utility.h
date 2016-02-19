@@ -20,8 +20,8 @@
 // THE SOFTWARE.
 //
 
-#ifndef __AMD_GEOMETRYFX_UTILITY_H__
-#define __AMD_GEOMETRYFX_UTILITY_H__
+#ifndef AMD_GEOMETRYFX_UTILITY_H
+#define AMD_GEOMETRYFX_UTILITY_H
 
 #include <d3d11.h>
 #include <vector>
@@ -89,4 +89,4 @@ AMD_GEOMETRYFX_DLL_API bool CreateShader(ID3D11Device *device, ID3D11DeviceChild
 	const D3D11_INPUT_ELEMENT_DESC *inputElements = nullptr);
 }
 
-#endif // __AMD_GEOMETRYFX_UTILITY_H__
+#endif // AMD_GEOMETRYFX_UTILITY_H

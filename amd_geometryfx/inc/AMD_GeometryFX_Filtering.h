@@ -20,8 +20,8 @@
 // THE SOFTWARE.
 //
 
-#ifndef __AMD_GEOMETRYFX_FILTERING_H__
-#define __AMD_GEOMETRYFX_FILTERING_H__
+#ifndef AMD_GEOMETRYFX_FILTERING_H
+#define AMD_GEOMETRYFX_FILTERING_H
 
 // VS2010 has a bug in the headers, where they collide on #defines
 // include <intsafe.h> here to get rid of them
@@ -211,4 +211,4 @@ class AMD_GEOMETRYFX_DLL_API Filter
 };
 } // namespace GeometryFX
 } // namespace AMD
-#endif // __AMD_GEOMETRYFX_FILTERING_H__
+#endif // AMD_GEOMETRYFX_FILTERING_H

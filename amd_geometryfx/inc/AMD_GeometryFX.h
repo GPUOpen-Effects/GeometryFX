@@ -20,8 +20,8 @@
 // THE SOFTWARE.
 //
 
-#ifndef __AMD_GEOMETRYFX_H__
-#define __AMD_GEOMETRYFX_H__
+#ifndef AMD_GEOMETRYFX_H
+#define AMD_GEOMETRYFX_H
 
 #   define AMD_GEOMETRYFX_VERSION_MAJOR             1
 #   define AMD_GEOMETRYFX_VERSION_MINOR             0
@@ -47,4 +47,4 @@
 #       define AMD_GEOMETRYFX_DEBUG                 1
 #   endif
 
-#endif // __AMD_GEOMETRYFX_H__
+#endif // AMD_GEOMETRYFX_H
