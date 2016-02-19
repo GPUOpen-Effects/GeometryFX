@@ -25,9 +25,9 @@
 //
 // Helpers to implement the DXUT related ShaderCache interface in samples.
 //--------------------------------------------------------------------------------------
+#ifndef AMD_SDK_SHADER_CACHE_SAMPLE_HELPER_H
+#define AMD_SDK_SHADER_CACHE_SAMPLE_HELPER_H
 
-
-#pragma once
 
 class CDXUTControl;
 class CDXUTTextHelper;
@@ -73,6 +73,8 @@ namespace AMD
     void __stdcall OnGUIEvent( UINT nEvent, int nControlID, CDXUTControl* pControl, void* pUserContext );
 
 } // namespace AMD
+
+#endif
 
 //--------------------------------------------------------------------------------------
 // EOF

@@ -25,22 +25,6 @@
 
 //using namespace AMD;
 
-#if !defined( _ASSERT )
-#define _ASSERT(exp)
-#endif
-
-#ifndef SAFE_RELEASE
-#define SAFE_RELEASE(p) if(p){p->Release(); p=NULL;}
-#endif
-
-#ifndef SAFE_DELETE
-#define SAFE_DELETE(p) if(p){delete p; p=NULL;}
-#endif
-
-#ifndef SAFE_DELETE_ARRAY
-#define SAFE_DELETE_ARRAY(p) if(p){delete[] p; p=NULL;}
-#endif
-
 #if USE_RDTSC
 __declspec(naked) LONGLONG __cdecl rdtsc_time(void)
 {

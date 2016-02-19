@@ -23,13 +23,11 @@
 //--------------------------------------------------------------------------------------
 // File: MagnifyTool.h
 //
-// MagnifyTool class definition. This class implements a user interface based upon the DXUT framework,
-// for the Magnify class.
+// MagnifyTool class definition. This class implements a user interface based upon
+// the DXUT framework for the Magnify class.
 //--------------------------------------------------------------------------------------
-
-
-#ifndef _MAGNIFYTOOL_H_
-#define _MAGNIFYTOOL_H_
+#ifndef AMD_SDK_MAGNIFY_TOOL_H
+#define AMD_SDK_MAGNIFY_TOOL_H
 
 namespace AMD
 {
@@ -102,7 +100,7 @@ namespace AMD
 
 } // namespace AMD
 
-#endif // _MAGNIFYTOOL_H_
+#endif // AMD_SDK_MAGNIFY_TOOL_H
 
 
 //--------------------------------------------------------------------------------------

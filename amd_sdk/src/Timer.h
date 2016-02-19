@@ -405,10 +405,8 @@
 * }
 *
 ***********************************************************/
-
-
-#ifndef _TIMER_H
-#define _TIMER_H
+#ifndef AMD_SDK_TIMER_H
+#define AMD_SDK_TIMER_H
 
 //namespace AMD
 //{
@@ -695,4 +693,4 @@ public:
 #endif
 //} // namespace AMD
 
-#endif // _TIMER_H
+#endif // AMD_SDK_TIMER_H

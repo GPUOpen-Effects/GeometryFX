@@ -20,10 +20,15 @@
 // THE SOFTWARE.
 //
 
-#ifndef __AMD_MESH_H__
-#define __AMD_MESH_H__
+//--------------------------------------------------------------------------------------
+// File: AMD_Mesh.h
+//
+// Convenience wrapper for loading and drawing models with Assimp or DXUT sdkmesh.
+//--------------------------------------------------------------------------------------
+#ifndef AMD_SDK_MESH_H
+#define AMD_SDK_MESH_H
 
-#include <d3d11_1.h>
+#include <d3d11.h>
 #include <vector>
 
 #ifndef AMD_SAFE_RELEASE

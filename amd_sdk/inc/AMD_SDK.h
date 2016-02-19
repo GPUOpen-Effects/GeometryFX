@@ -25,8 +25,8 @@
 //
 // Library include file, to drag in all AMD SDK helper classes and functions.
 //--------------------------------------------------------------------------------------
-#ifndef __AMD_SDK_H__
-#define __AMD_SDK_H__
+#ifndef AMD_SDK_H
+#define AMD_SDK_H
 
 
 #define VENDOR_ID_AMD       (0x1002)
@@ -72,7 +72,7 @@ struct AMDProfileEventClass
     ~AMDProfileEventClass() { AMDProfileEnd() }
 };
 
-#define AMDProfileEvent( col, name ) AMDProfileEventClass __amd_profile_event( col, name )
+#define AMDProfileEvent( col, name ) AMDProfileEventClass _amd_profile_event( col, name )
 
 
 
