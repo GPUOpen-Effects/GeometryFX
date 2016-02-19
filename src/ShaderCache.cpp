@@ -920,7 +920,7 @@ bool ShaderCache::AddShader(    ID3D11DeviceChild** ppShader,
 //--------------------------------------------------------------------------------------
 // The shader thread proc, has to be public, but must not be called by user
 //--------------------------------------------------------------------------------------
-DWORD WINAPI _GenerateShadersThreadProc( void* pParameter )
+DWORD WINAPI GenerateShaders_ThreadProc_( void* pParameter )
 {
     ShaderCache* pShaderCache = (ShaderCache*)pParameter;
 
@@ -982,7 +982,7 @@ HRESULT ShaderCache::GenerateShaders( CREATE_TYPE CreateType, const bool i_kbRec
             m_uProgressCounter = 0;
 
             ResetEvent( s_hDoneEvent );
-            QueueUserWorkItem( _GenerateShadersThreadProc, this, WT_EXECUTELONGFUNCTION );
+            QueueUserWorkItem( GenerateShaders_ThreadProc_, this, WT_EXECUTELONGFUNCTION );
         }
         else
         {

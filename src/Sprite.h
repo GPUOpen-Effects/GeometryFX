@@ -26,10 +26,8 @@
 // Sprite class definition. This class provides functionality to render sprites, at a
 // given position and scale.
 //--------------------------------------------------------------------------------------
-
-
-#ifndef _SPRITE_H_
-#define _SPRITE_H_
+#ifndef AMD_SDK_SPRITE_H
+#define AMD_SDK_SPRITE_H
 
 namespace AMD
 {
@@ -109,7 +107,7 @@ namespace AMD
 
 } // namespace AMD
 
-#endif // _SPRITE_H_
+#endif // AMD_SDK_SPRITE_H
 
 
 //--------------------------------------------------------------------------------------
