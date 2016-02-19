@@ -555,7 +555,7 @@ struct Filter::FILTER_OPAQUE
 		meshManager_ = GeometryFX_Internal::CreateGlobalMeshManager();
 		agsContext_ = nullptr;
 
-		if (agsInit (&agsContext_, nullptr) == AGS_SUCCESS) {
+		if (agsInit (&agsContext_, nullptr, nullptr) == AGS_SUCCESS) {
 			unsigned int supportedExtensions = 0;
 			agsDriverExtensions_Init (agsContext_, device_, &supportedExtensions);
 
