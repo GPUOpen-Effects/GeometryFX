@@ -1,6 +1,5 @@
 # AMD GeometryFX
-
-<img src="amd_geometryfx_sample/media/Thumbnail.png" width="480" height="242" />
+![AMD GeometryFX](http://gpuopen-effects.github.io/media/effects/geometryfx_thumbnail.png)
 
 The GeometryFX library provides convenient access to compute-based triangle filtering (CTF), which improves triangle throughput by filtering out triangles that do not contribute to the final image using a compute-preprocess.
 
