@@ -45,7 +45,7 @@ namespace AMD
     //--------------------------------------------------------------------------------------
     extern const int g_MaxApplicationControlID;
 
-    enum
+    enum SHADER_CACHE_SAMPLE_HELPER_IDC
     {
         AMD_IDC_START = 0,
         AMD_IDC_BUTTON_SHOW_SHADERCACHE_UI       = AMD_IDC_START,
@@ -75,7 +75,3 @@ namespace AMD
 } // namespace AMD
 
 #endif
-
-//--------------------------------------------------------------------------------------
-// EOF
-//--------------------------------------------------------------------------------------
