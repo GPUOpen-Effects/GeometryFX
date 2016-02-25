@@ -45,5 +45,6 @@ StaticMesh::StaticMesh(const int vertexCount, const int indexCount, const int me
 StaticMesh::~StaticMesh()
 {
 }
-}
-}
+
+} // namespace GeometryFX_Internal
+} // namespace AMD

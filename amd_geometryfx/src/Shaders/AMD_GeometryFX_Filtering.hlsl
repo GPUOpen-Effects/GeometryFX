@@ -114,10 +114,12 @@ bool CullTriangle (uint indices [3], float4 vertices [3])
     bool cull = false;
 
 #ifdef ENABLE_CULL_INDEX
-    if (cullFlags & CULL_INDEX_FILTER) {
-        if (indices [0] == indices [1]
-        ||  indices [1] == indices [2]
-        ||  indices [0] == indices [2]) {
+    if (cullFlags & CULL_INDEX_FILTER)
+    {
+        if (   indices[0] == indices[1]
+            || indices[1] == indices[2]
+            || indices[0] == indices[2])
+        {
             cull = true;
         }
     }
@@ -127,12 +129,14 @@ bool CullTriangle (uint indices [3], float4 vertices [3])
     // Read: "Triangle Scan Conversion using 2D Homogeneous Coordinates"
     //       by Marc Olano, Trey Greer
     //       http://www.cs.unc.edu/~olano/papers/2dh-tri/2dh-tri.pdf
-    float3x3 m = {
+    float3x3 m =
+    {
         vertices[0].xyw, vertices[1].xyw, vertices[2].xyw
     };
 
 #if ENABLE_CULL_BACKFACE
-    if (cullFlags & CULL_BACKFACE) {
+    if (cullFlags & CULL_BACKFACE)
+    {
         cull = cull || (determinant (m) > 0);
     }
 #endif
@@ -141,18 +145,21 @@ bool CullTriangle (uint indices [3], float4 vertices [3])
     bool intersectNearPlane = false;
 
     // Transform vertices[i].xy into normalized 0..1 screen space
-    for (uint i = 0; i < 3; ++i) {
+    for (uint i = 0; i < 3; ++i)
+    {
         vertices[i].xy /= vertices[i].w;
         vertices[i].xy /= 2;
         vertices[i].xy += float2(0.5, 0.5);
-        if (vertices[i].w < 0) {
+        if (vertices[i].w < 0)
+        {
             intersectNearPlane = true;
         }
     }
 #endif
 
 #if ENABLE_CULL_SMALL_PRIMITIVES
-    if (cullFlags & CULL_SMALL_PRIMITIVES) {
+    if (cullFlags & CULL_SMALL_PRIMITIVES)
+    {
         static const uint SUBPIXEL_BITS = 8;
         static const uint SUBPIXEL_MASK = 0xFF;
         static const uint SUBPIXEL_SAMPLES = 1 << SUBPIXEL_BITS;
@@ -171,22 +178,25 @@ bool CullTriangle (uint indices [3], float4 vertices [3])
         int2 maxBB = int2(-(1 << 30), -(1 << 30));
 
         bool insideGuardBand = true;
-        for (uint i = 0; i < 3; ++i) {
+        for (uint i = 0; i < 3; ++i)
+        {
             float2 screenSpacePositionFP = vertices[i].xy * float2 (windowWidth, windowHeight);
             // Check if we would overflow after conversion
-            if (    screenSpacePositionFP.x < -(1 << 23)
-              ||    screenSpacePositionFP.x >  (1 << 23)
-              ||    screenSpacePositionFP.y < -(1 << 23)
-              ||    screenSpacePositionFP.y >  (1 << 23)) {
-                  insideGuardBand = false;
-              }
+            if (   screenSpacePositionFP.x < -(1 << 23)
+                || screenSpacePositionFP.x >  (1 << 23)
+                || screenSpacePositionFP.y < -(1 << 23)
+                || screenSpacePositionFP.y >  (1 << 23))
+            {
+                insideGuardBand = false;
+            }
 
             int2 screenSpacePosition = int2 (screenSpacePositionFP * SUBPIXEL_SAMPLES);
             minBB = min (screenSpacePosition, minBB);
             maxBB = max (screenSpacePosition, maxBB);
         }
 
-        if (!intersectNearPlane && insideGuardBand) {
+        if (!intersectNearPlane && insideGuardBand)
+        {
             /**
             Test is:
 
@@ -209,8 +219,10 @@ bool CullTriangle (uint indices [3], float4 vertices [3])
 #endif
 
 #if ENABLE_CULL_FRUSTUM
-    if (cullFlags & CULL_FRUSTUM) {
-        if (!intersectNearPlane) {
+    if (cullFlags & CULL_FRUSTUM)
+    {
+        if (!intersectNearPlane)
+        {
             float minx = min (min (vertices[0].x, vertices[1].x), vertices[2].x);
             float miny = min (min (vertices[0].y, vertices[1].y), vertices[2].y);
             float maxx = max (max (vertices[0].x, vertices[1].x), vertices[2].x);
@@ -241,7 +253,8 @@ void FilterCS(
     uint3 inGroupId : SV_GroupThreadID,
     uint3 groupId : SV_GroupID )
 {
-    if (inGroupId.x == 0) {
+    if (inGroupId.x == 0)
+    {
         workGroupIndexCount = 0;
     }
 
@@ -255,16 +268,19 @@ void FilterCS(
     uint batchInputVertexOffset = meshConstants [batchMeshIndex].vertexOffset;
     uint batchDrawIndex = smallBatchData [groupId.x].drawIndex;
 
-    if (inGroupId.x < smallBatchData [groupId.x].faceCount) {
+    if (inGroupId.x < smallBatchData [groupId.x].faceCount)
+    {
         float4x4 worldView = drawConstants [batchDrawIndex].worldView;
 
-        uint indices [3] = {
+        uint indices [3] =
+        {
             indexData [inGroupId.x * 3 + 0 + batchInputIndexOffset],
             indexData [inGroupId.x * 3 + 1 + batchInputIndexOffset],
             indexData [inGroupId.x * 3 + 2 + batchInputIndexOffset]
         };
 
-        float4 vertices [3] = {
+        float4 vertices [3] =
+        {
             mul (projection, mul (worldView, float4 (LoadVertex (indices [0], batchInputVertexOffset), 1))),
             mul (projection, mul (worldView, float4 (LoadVertex (indices [1], batchInputVertexOffset), 1))),
             mul (projection, mul (worldView, float4 (LoadVertex (indices [2], batchInputVertexOffset), 1)))
@@ -272,14 +288,16 @@ void FilterCS(
 
         cull = CullTriangle (indices, vertices);
 
-        if (!cull) {
+        if (!cull)
+        {
             InterlockedAdd (workGroupIndexCount, 3, threadOutputSlot);
         }
     }
 
     GroupMemoryBarrierWithGroupSync ();
 
-    if (inGroupId.x == 0) {
+    if (inGroupId.x == 0)
+    {
         InterlockedAdd (indirectArgs [batchDrawIndex * 5], workGroupIndexCount, workGroupOutputSlot);
     }
 
@@ -287,15 +305,17 @@ void FilterCS(
 
     uint outputIndexOffset =  workGroupOutputSlot + smallBatchData [groupId.x].outputIndexOffset / 4;
 
-    if (!cull) {
+    if (!cull)
+    {
         filteredIndices [outputIndexOffset + threadOutputSlot + 0] = indexData [inGroupId.x * 3 + 0 + batchInputIndexOffset];
         filteredIndices [outputIndexOffset + threadOutputSlot + 1] = indexData [inGroupId.x * 3 + 1 + batchInputIndexOffset];
         filteredIndices [outputIndexOffset + threadOutputSlot + 2] = indexData [inGroupId.x * 3 + 2 + batchInputIndexOffset];
     }
 
-    if (inGroupId.x == 0 && groupId.x == smallBatchData [groupId.x].drawBatchStart) {
-        indirectArgs [batchDrawIndex * 5 + 2] = smallBatchData [groupId.x].outputIndexOffset / 4 /* == sizeof (int32) */;
-        indirectArgs [batchDrawIndex * 5 + 3] = batchInputVertexOffset / 12 /* == sizeof (float3) */;
+    if (inGroupId.x == 0 && groupId.x == smallBatchData [groupId.x].drawBatchStart)
+    {
+        indirectArgs [batchDrawIndex * 5 + 2] = smallBatchData[groupId.x].outputIndexOffset / 4; // 4 == sizeof (int32)
+        indirectArgs [batchDrawIndex * 5 + 3] = batchInputVertexOffset / 12; // 12 == sizeof (float3)
         indirectArgs [batchDrawIndex * 5 + 4] = batchDrawIndex;
     }
 }

@@ -32,6 +32,9 @@
     <ClInclude Include="..\src\GeometryFXMeshManager.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\GeometryFXUtility_Internal.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\AMD_GeometryFX_Filtering.cpp">
@@ -44,6 +47,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\src\GeometryFXMeshManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\GeometryFXUtility_Internal.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

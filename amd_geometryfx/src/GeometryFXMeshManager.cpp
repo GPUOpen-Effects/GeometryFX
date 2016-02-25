@@ -23,7 +23,7 @@
 #include "GeometryFXMeshManager.h"
 
 #include "GeometryFXMesh.h"
-#include "AMD_GeometryFX_Utility.h"
+#include "GeometryFXUtility_Internal.h"
 
 #include <wrl.h>
 
@@ -255,5 +255,6 @@ std::unique_ptr<IMeshManager> CreateGlobalMeshManager()
 {
     return std::unique_ptr<IMeshManager>(new MeshManagerGlobal());
 }
-}
-}
+
+} // namespace GeometryFX_Internal
+} // namespace AMD

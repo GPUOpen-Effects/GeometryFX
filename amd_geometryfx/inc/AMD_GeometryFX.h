@@ -24,7 +24,8 @@
 #define AMD_GEOMETRYFX_H
 
 #   define AMD_GEOMETRYFX_VERSION_MAJOR             1
-#   define AMD_GEOMETRYFX_VERSION_MINOR             0
+#   define AMD_GEOMETRYFX_VERSION_MINOR             1
+#   define AMD_GEOMETRYFX_VERSION_PATCH             0
 
 // default to static lib
 #   ifndef AMD_GEOMETRYFX_COMPILE_DYNAMIC_LIB
@@ -46,5 +47,20 @@
 #   if defined(DEBUG) || defined(_DEBUG)
 #       define AMD_GEOMETRYFX_DEBUG                 1
 #   endif
+
+namespace AMD
+{
+    // The Return codes
+    typedef enum GEOMETRYFX_RETURN_CODE_t
+    {
+        GEOMETRYFX_RETURN_CODE_SUCCESS,
+        GEOMETRYFX_RETURN_CODE_FAIL,
+        GEOMETRYFX_RETURN_CODE_INVALID_ARGUMENT,
+        GEOMETRYFX_RETURN_CODE_INVALID_POINTER,
+        GEOMETRYFX_RETURN_CODE_D3D11_CALL_FAILED,
+
+        GEOMETRYFX_RETURN_CODE_COUNT,
+    } GEOMETRYFX_RETURN_CODE;
+}
 
 #endif // AMD_GEOMETRYFX_H

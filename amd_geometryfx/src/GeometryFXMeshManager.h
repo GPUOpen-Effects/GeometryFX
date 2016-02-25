@@ -20,8 +20,8 @@
 // THE SOFTWARE.
 //
 
-#ifndef AMD_GEOMETRYFX_INTERNAL_MESHMANAGER_H_71A7953FF8E74B84A48F7EA45E2145D2
-#define AMD_GEOMETRYFX_INTERNAL_MESHMANAGER_H_71A7953FF8E74B84A48F7EA45E2145D2
+#ifndef AMD_GEOMETRYFX_MESH_MANAGER_H
+#define AMD_GEOMETRYFX_MESH_MANAGER_H
 
 #include <d3d11.h>
 #include <wrl.h>
@@ -47,7 +47,7 @@ struct MeshConstants
 class IMeshManager
 {
   public:
-	IMeshManager ();
+    IMeshManager ();
     virtual ~IMeshManager();
 
     virtual void Allocate(ID3D11Device *pDevice, const int meshCount, const int *verticesPerMesh,
@@ -61,10 +61,10 @@ class IMeshManager
 
     virtual ID3D11ShaderResourceView *GetMeshConstantsBuffer() const = 0;
 
-	virtual ID3D11Buffer *GetIndexBuffer () const = 0;
-	virtual ID3D11Buffer *GetVertexBuffer () const = 0;
-	virtual ID3D11ShaderResourceView *GetIndexBufferSRV () const = 0;
-	virtual ID3D11ShaderResourceView *GetVertexBufferSRV () const = 0;
+    virtual ID3D11Buffer *GetIndexBuffer () const = 0;
+    virtual ID3D11Buffer *GetVertexBuffer () const = 0;
+    virtual ID3D11ShaderResourceView *GetIndexBufferSRV () const = 0;
+    virtual ID3D11ShaderResourceView *GetVertexBufferSRV () const = 0;
 
   private:
     IMeshManager(const IMeshManager &);
@@ -72,7 +72,8 @@ class IMeshManager
 };
 
 std::unique_ptr<IMeshManager> CreateGlobalMeshManager();
-}
-}
 
-#endif
+} // namespace GeometryFX_Internal
+} // namespace AMD
+
+#endif // AMD_GEOMETRYFX_MESH_MANAGER_H

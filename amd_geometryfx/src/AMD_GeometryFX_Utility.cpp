@@ -22,60 +22,29 @@
 
 #include "AMD_GeometryFX_Utility.h"
 
-#include <d3dcompiler.h>
 #include <cstdio>
-
-#include <wrl.h>
-using namespace Microsoft::WRL;
 
 #pragma warning(disable : 4996)
 
 namespace AMD
 {
 ////////////////////////////////////////////////////////////////////////////////
-bool CreateShader(ID3D11Device *device, ID3D11DeviceChild **shader, const std::size_t shaderSize,
-    const void *shaderSource, ShaderType::Enum shaderType, ID3D11InputLayout **inputLayout,
-    const int inputElementCount, const D3D11_INPUT_ELEMENT_DESC *inputElements)
+GEOMETRYFX_RETURN_CODE GeometryFX_GetVersion(uint* major, uint* minor, uint* patch)
 {
-    if (inputLayout)
+    if (major == NULL || minor == NULL || patch == NULL)
     {
-        device->CreateInputLayout(
-            inputElements, inputElementCount, shaderSource, shaderSize, inputLayout);
+        return GEOMETRYFX_RETURN_CODE_INVALID_POINTER;
     }
 
-    switch (shaderType)
-    {
-        case ShaderType::Compute:
-            device->CreateComputeShader(
-                shaderSource, shaderSize, nullptr, (ID3D11ComputeShader **)shader);
-            break;
-        case ShaderType::Pixel:
-            device->CreatePixelShader(
-                shaderSource, shaderSize, nullptr, (ID3D11PixelShader **)shader);
-            break;
-        case ShaderType::Vertex:
-            device->CreateVertexShader(
-                shaderSource, shaderSize, nullptr, (ID3D11VertexShader **)shader);
-            break;
-        case ShaderType::Hull:
-            device->CreateHullShader(
-                shaderSource, shaderSize, nullptr, (ID3D11HullShader **)shader);
-            break;
-        case ShaderType::Domain:
-            device->CreateDomainShader(
-                shaderSource, shaderSize, nullptr, (ID3D11DomainShader **)shader);
-            break;
-        case ShaderType::Geometry:
-            device->CreateGeometryShader(
-                shaderSource, shaderSize, nullptr, (ID3D11GeometryShader **)shader);
-            break;
-    }
+    *major = AMD_GEOMETRYFX_VERSION_MAJOR;
+    *minor = AMD_GEOMETRYFX_VERSION_MINOR;
+    *patch = AMD_GEOMETRYFX_VERSION_PATCH;
 
-    return true;
+    return GEOMETRYFX_RETURN_CODE_SUCCESS;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-void WriteBlobToFile(const char *filename, const std::size_t size, const void *data)
+void GeometryFX_WriteBlobToFile(const char *filename, const std::size_t size, const void *data)
 {
     auto handle = std::fopen(filename, "wb");
     std::fwrite(data, size, 1, handle);
@@ -83,7 +52,7 @@ void WriteBlobToFile(const char *filename, const std::size_t size, const void *d
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-std::vector<byte> ReadBlobFromFile(const char *filename)
+std::vector<byte> GeometryFX_ReadBlobFromFile(const char *filename)
 {
     std::vector<byte> result;
     byte buffer[4096];
@@ -106,4 +75,5 @@ std::vector<byte> ReadBlobFromFile(const char *filename)
 
     return result;
 }
-}
+
+} // namespace AMD

@@ -20,8 +20,8 @@
 // THE SOFTWARE.
 //
 
-#ifndef AMD_GEOMETRYFX_INTERNAL_MESH_H_869371F0A0B7431D9451757A9997CD63
-#define AMD_GEOMETRYFX_INTERNAL_MESH_H_869371F0A0B7431D9451757A9997CD63
+#ifndef AMD_GEOMETRYFX_MESH_H
+#define AMD_GEOMETRYFX_MESH_H
 
 #include <d3d11.h>
 #include <wrl.h>
@@ -30,14 +30,15 @@ namespace AMD
 {
 namespace GeometryFX_Internal
 {
+
 class StaticMesh
 {
-  public:
+public:
     StaticMesh(const int vertexCount, const int indexCount, const int meshIndex);
 
     virtual ~StaticMesh();
 
-  public:
+public:
     Microsoft::WRL::ComPtr<ID3D11Buffer> vertexBuffer;
     Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> vertexBufferSRV;
     Microsoft::WRL::ComPtr<ID3D11Buffer> indexBuffer;
@@ -52,11 +53,12 @@ class StaticMesh
     int indexOffset;
     int vertexOffset;
 
-  private:
+private:
     StaticMesh(const StaticMesh &);
     StaticMesh &operator=(const StaticMesh &);
 };
-}
-}
 
-#endif
+} // namespace GeometryFX_Internal
+} // namespace AMD
+
+#endif // AMD_GEOMETRYFX_MESH_H

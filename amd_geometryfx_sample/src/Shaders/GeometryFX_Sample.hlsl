@@ -38,8 +38,9 @@ cbuffer FullscreenConstantBuffer     : register(b0)
 uint2 tea (uint2 v)
 {
     uint sum=0, delta=0x9e3779b9;
-    uint k[4] ={0xA341316C , 0xC8013EA4 , 0xAD90777D , 0x7E95761E};
-    for (uint i = 0; i < 5; ++i) {
+    uint k[4] = { 0xA341316C, 0xC8013EA4, 0xAD90777D, 0x7E95761E };
+    for (uint i = 0; i < 5; ++i)
+    {
         sum += delta;
         v.x += ((v.y << 4)+k[0] )^(v.y + sum)^((v.y >> 5)+k[1] );
         v.y += ((v.x << 4)+k[2] )^(v.x + sum)^((v.x >> 5)+k[3] );
@@ -79,7 +80,8 @@ float4 FullscreenPS(float4 pos : SV_POSITION) : SV_Target
     int px = int (screenSpacePos.x * scale + sx);
     int py = int (screenSpacePos.y * scale + sy);
 
-    if (px >= shadowMapWidth || py >= shadowMapHeight || px < 0 || py < 0) {
+    if (px >= shadowMapWidth || py >= shadowMapHeight || px < 0 || py < 0)
+    {
         // Out of bounds
         bool stripeIn = uint((pos.x + rf.x * 4 + pos.y + rf.y * 4) / 16) & 2;
         return float4 ((stripeIn ? 0.75 : 0.4) * (1.0f - 0.3f * rf.x), 0, 0, 1);

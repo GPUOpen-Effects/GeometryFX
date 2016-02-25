@@ -20,20 +20,55 @@
 // THE SOFTWARE.
 //
 
-#ifndef AMD_GEOMETRYFX_UTILITY_H
-#define AMD_GEOMETRYFX_UTILITY_H
+#ifndef AMD_GEOMETRYFX_UTILITY_INTERNAL_H
+#define AMD_GEOMETRYFX_UTILITY_INTERNAL_H
 
-#include <vector>
+#include <d3d11.h>
+
+#include <varargs.h>
 
 #include "AMD_GeometryFX.h"
 
 namespace AMD
 {
+namespace GeometryFX_Internal
+{
 
-AMD_GEOMETRYFX_DLL_API GEOMETRYFX_RETURN_CODE GeometryFX_GetVersion(uint* major, uint* minor, uint* patch);
-AMD_GEOMETRYFX_DLL_API void GeometryFX_WriteBlobToFile(const char *filename, const size_t size, const void *data);
-AMD_GEOMETRYFX_DLL_API std::vector<byte> GeometryFX_ReadBlobFromFile(const char *filename);
+template <typename T> T RoundToNextMultiple(T value, T multiple)
+{
+    return ((value + multiple - 1) / multiple) * multiple;
+}
 
+template <typename T> void SetDebugName(T pObject, const char *s, ...)
+{
+    char buffer[512] = {};
+    va_list args;
+    va_start(args, s);
+    vsprintf_s(buffer, s, args);
+    va_end(args);
+    pObject->SetPrivateData(WKPDID_D3DDebugObjectName,
+        static_cast<UINT> (::strlen (buffer) - 1), buffer);
+}
+
+struct ShaderType
+{
+    enum Enum
+    {
+        Vertex,
+        Domain,
+        Hull,
+        Geometry,
+        Pixel,
+        Compute
+    };
+};
+
+bool CreateShader(ID3D11Device *device, ID3D11DeviceChild **ppShader, const size_t shaderSize,
+    const void *shaderSource, ShaderType::Enum shaderType,
+    ID3D11InputLayout **inputLayout = nullptr, const int inputElementCount = 0,
+    const D3D11_INPUT_ELEMENT_DESC *inputElements = nullptr);
+
+} // namespace GeometryFX_Internal
 } // namespace AMD
 
-#endif // AMD_GEOMETRYFX_UTILITY_H
+#endif // AMD_GEOMETRYFX_UTILITY_INTERNAL_H

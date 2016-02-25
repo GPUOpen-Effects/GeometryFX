@@ -34,20 +34,18 @@
 
 namespace AMD
 {
-namespace GeometryFX
-{
 
-enum FILTER
+enum GEOMETRYFX_FILTER
 {
-    FilterDuplicateIndices = 0x1,
-    FilterBackface = 0x2,
-    FilterFrustum = 0x8,
-    FilterSmallPrimitives = 0x20
+    GeometryFX_FilterDuplicateIndices = 0x1,
+    GeometryFX_FilterBackface = 0x2,
+    GeometryFX_FilterFrustum = 0x8,
+    GeometryFX_FilterSmallPrimitives = 0x20
 };
 
-struct FilterStatistics
+struct GeometryFX_FilterStatistics
 {
-    inline FilterStatistics()
+    inline GeometryFX_FilterStatistics()
         : trianglesProcessed(0)
         , trianglesRendered(0)
         , trianglesCulled(0)
@@ -59,9 +57,9 @@ struct FilterStatistics
     int64 trianglesCulled;
 };
 
-struct FILTER_RENDER_OPTIONS
+struct GeometryFX_FilterRenderOptions
 {
-    inline FILTER_RENDER_OPTIONS()
+    inline GeometryFX_FilterRenderOptions()
         : enableFiltering(true)
         , enabledFilters(0xFF)
         , statistics(nullptr)
@@ -84,12 +82,12 @@ struct FILTER_RENDER_OPTIONS
     If enabled, queries will be issued along with each draw call significantly
     reducing performance.
     */
-    FilterStatistics *statistics;
+    GeometryFX_FilterStatistics *statistics;
 };
 
-struct FILTER_DESC
+struct GeometryFX_FilterDesc
 {
-    inline FILTER_DESC()
+    inline GeometryFX_FilterDesc()
         : pDevice(nullptr)
         , maximumDrawCallCount(-1)
         , emulateMultiIndirectDraw(false)
@@ -111,14 +109,14 @@ struct FILTER_DESC
 All resources created here will have names set using DXUT_SetDebugName with a
 [AMD GeometryFX Filtering] prefix.
 */
-class AMD_GEOMETRYFX_DLL_API Filter
+class AMD_GEOMETRYFX_DLL_API GeometryFX_Filter
 {
   public:
     struct Handle;
     typedef Handle *MeshHandle;
 
-    Filter(const FILTER_DESC *pFilterDesc);
-    ~Filter();
+    GeometryFX_Filter(const GeometryFX_FilterDesc *pFilterDesc);
+    ~GeometryFX_Filter();
 
     /**
     Register meshes for the static mesh renderer.
@@ -157,7 +155,7 @@ class AMD_GEOMETRYFX_DLL_API Filter
         - resources bound to the vertex shader, pixel shader and compute shader
         - the topology
     */
-    void BeginRender(ID3D11DeviceContext *pContext, const FILTER_RENDER_OPTIONS &options,
+    void BeginRender(ID3D11DeviceContext *pContext, const GeometryFX_FilterRenderOptions &options,
         const DirectX::XMMATRIX &view, const DirectX::XMMATRIX &projection,
         const int renderTargetWidth, const int renderTargetHeight);
 
@@ -190,9 +188,9 @@ class AMD_GEOMETRYFX_DLL_API Filter
 
     If a parameter is set to null, it won't be written.
     */
-    void GetBuffersForMesh(const MeshHandle &handle, 
+    void GetBuffersForMesh(const MeshHandle &handle,
         ID3D11Buffer **ppVertexBuffer,
-        int32 *pVertexOffset, 
+        int32 *pVertexOffset,
         ID3D11Buffer **ppIndexBuffer,
         int32 *pIndexOffset) const;
 
@@ -203,12 +201,13 @@ class AMD_GEOMETRYFX_DLL_API Filter
 
   private:
     // Disable the copy constructor
-    Filter(const Filter &);
-    Filter &operator=(const Filter &);
+    GeometryFX_Filter(const GeometryFX_Filter &);
+    GeometryFX_Filter &operator=(const GeometryFX_Filter &);
 
-    struct FILTER_OPAQUE;
-    FILTER_OPAQUE *impl_;
+    struct GeometryFX_OpaqueFilterDesc;
+    GeometryFX_OpaqueFilterDesc *impl_;
 };
-} // namespace GeometryFX
+
 } // namespace AMD
+
 #endif // AMD_GEOMETRYFX_FILTERING_H
