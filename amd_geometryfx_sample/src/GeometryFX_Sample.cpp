@@ -968,11 +968,17 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
     const auto cmdLineOptions = ParseCommandLine(argc, argv);
     g_Application.Setup(cmdLineOptions);
 
+    unsigned int major, minor, patch;
+    AMD::GeometryFX_GetVersion(&major, &minor, &patch);
+
+    WCHAR windowTitle[64];
+    swprintf_s(windowTitle, 64, L"AMD GeometryFX v%d.%d.%d", major, minor, patch);
+
     InitApp();
     DXUTInit(true, true, NULL); // Parse the command line, show msgboxes on error, no extra
                                 // command line params
     DXUTSetCursorSettings(true, true);
-    DXUTCreateWindow(L"AMD GeometryFX v1.0");
+    DXUTCreateWindow(windowTitle);
 
     DXUTCreateDevice(
         D3D_FEATURE_LEVEL_11_0, true, g_Application.windowWidth, g_Application.windowHeight);
