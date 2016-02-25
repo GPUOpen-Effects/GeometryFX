@@ -30,7 +30,7 @@
 //
 // Assumption, relies on following directory structure:
 //
-// SolutionDir\..\src\Shaders\
+// SolutionDir\..\src\Shaders
 //--------------------------------------------------------------------------------------
 #ifndef AMD_SDK_SHADER_CACHE_H
 #define AMD_SDK_SHADER_CACHE_H
@@ -139,7 +139,8 @@ namespace AMD
         typedef enum SHADER_COMPILER_EXE_TYPE_t
         {
             SHADER_COMPILER_EXE_INSTALLED,  // Look for shader compiler EXEs (fxc and ScDev) in their installed locations
-            SHADER_COMPILER_EXE_LOCAL,      // Look for shader compiler EXEs (fxc and ScDev) in the AMD_SDK\src\Shaders directory (don't use this when releasing samples, as distributing fxc in this way violates the license)
+            SHADER_COMPILER_EXE_LOCAL,      // Look for shader compiler EXEs (fxc and ScDev) in the AMD_SDK\src\Shaders directory
+                                            // (don't use LOCAL when releasing samples, as distributing fxc in this way violates the license)
             SHADER_COMPILER_EXE_MAX
         }SHADER_COMPILER_EXE_TYPE;
 
@@ -229,8 +230,10 @@ namespace AMD
         };
 
         // Construction / destruction
-        ShaderCache( const SHADER_AUTO_RECOMPILE_TYPE i_keAutoRecompileTouchedShadersType = SHADER_AUTO_RECOMPILE_DISABLED, const ERROR_DISPLAY_TYPE i_keErrorDisplayType = ERROR_DISPLAY_IN_DEBUG_OUTPUT_AND_BREAK,
-            const GENERATE_ISA_TYPE i_keGenerateShaderISAType = GENERATE_ISA_DISABLED, const SHADER_COMPILER_EXE_TYPE i_keShaderCompilerExeType = SHADER_COMPILER_EXE_INSTALLED );
+        ShaderCache( const SHADER_AUTO_RECOMPILE_TYPE i_keAutoRecompileTouchedShadersType = SHADER_AUTO_RECOMPILE_DISABLED,
+            const ERROR_DISPLAY_TYPE i_keErrorDisplayType = ERROR_DISPLAY_IN_DEBUG_OUTPUT_AND_BREAK,
+            const GENERATE_ISA_TYPE i_keGenerateShaderISAType = GENERATE_ISA_DISABLED,
+            const SHADER_COMPILER_EXE_TYPE i_keShaderCompilerExeType = SHADER_COMPILER_EXE_INSTALLED );
         ~ShaderCache();
 
         // Allows the user to add a shader to the cache
@@ -439,7 +442,3 @@ namespace AMD
 } // namespace AMD
 
 #endif
-
-//--------------------------------------------------------------------------------------
-// EOF
-//--------------------------------------------------------------------------------------

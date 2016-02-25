@@ -32,7 +32,7 @@
 #include <vector>
 
 #ifndef AMD_SAFE_RELEASE
-#define AMD_SAFE_RELEASE(p) { if (p) p->Release(); p = NULL; }
+#define AMD_SAFE_RELEASE(p) { if (p) { p->Release(); p = NULL; } }
 #endif
 
 class CDXUTSDKMesh;
@@ -89,6 +89,6 @@ public:
     ID3D11ShaderResourceView ** srv();
 };
 
-}
+} // namespace AMD
 
 #endif

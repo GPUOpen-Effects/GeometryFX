@@ -33,7 +33,7 @@ namespace AMD
 {
 
     // GUI defines
-    enum
+    enum MAGNIFY_TOOL_IDC
     {
         IDC_MAGNIFY_STATIC_CAPTION   =  19 + 1024,
         IDC_MAGNIFY_CHECKBOX_ENABLE,
@@ -101,8 +101,3 @@ namespace AMD
 } // namespace AMD
 
 #endif // AMD_SDK_MAGNIFY_TOOL_H
-
-
-//--------------------------------------------------------------------------------------
-// EOF
-//--------------------------------------------------------------------------------------
