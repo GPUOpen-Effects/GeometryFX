@@ -27,8 +27,8 @@
 
 namespace AMD
 {
-  float noise(uint seed);
-  float random_float(uint seed, float a, float b);
+    float noise(uint seed);
+    float random_float(uint seed, float a, float b);
 }
 
 #endif //AMD_LIB_RAND_H

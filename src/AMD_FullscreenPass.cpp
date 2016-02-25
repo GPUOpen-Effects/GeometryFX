@@ -81,9 +81,9 @@ namespace AMD
         ID3D11BlendState *          pOutputBS,
         ID3D11RasterizerState *     pOutputRS)
     {
-        return RenderFullscreenInstancedPass(pDeviceContext, 
-                                             Viewport, 
-                                             pVS, NULL, pPS, 
+        return RenderFullscreenInstancedPass(pDeviceContext,
+                                             Viewport,
+                                             pVS, NULL, pPS,
                                              pScissor, uNumSR,
                                              ppCB, uNumCBs,
                                              ppSamplers, uNumSamplers,
@@ -118,7 +118,7 @@ namespace AMD
         ID3D11UnorderedAccessView* pNullUAV[8]    = { NULL };
         ID3D11Buffer*              pNullBuffer[8] = { NULL };
         uint NullStride[8] = { 0 };
-        uint NullOffset[8] = { 0 } ;
+        uint NullOffset[8] = { 0 };
 
         if ((pDeviceContext == NULL || (pVS == NULL && pPS == NULL) || (ppRTVs == NULL && pDSV == NULL && ppUAVs == NULL)))
         {
@@ -128,9 +128,13 @@ namespace AMD
 
         pDeviceContext->OMSetDepthStencilState( pOutputDSS, uStencilRef );
         if (ppUAVs == NULL)
+        {
             pDeviceContext->OMSetRenderTargets( uNumRTVs, (ID3D11RenderTargetView*const*)ppRTVs, pDSV );
+        }
         else
+        {
             pDeviceContext->OMSetRenderTargetsAndUnorderedAccessViews( uNumRTVs, (ID3D11RenderTargetView*const*)ppRTVs, pDSV, uStartUAV, uNumUAVs, ppUAVs, NULL);
+        }
         pDeviceContext->OMSetBlendState(pOutputBS, white, 0xFFFFFFFF);
 
         pDeviceContext->RSSetViewports( 1, &Viewport );
@@ -139,7 +143,7 @@ namespace AMD
 
         pDeviceContext->PSSetConstantBuffers( 0, uNumCBs, ppCB);
         pDeviceContext->PSSetShaderResources( 0, uNumSRVs, ppSRVs );
-        pDeviceContext->PSSetSamplers( 0, uNumSamplers, ppSamplers );        
+        pDeviceContext->PSSetSamplers( 0, uNumSamplers, ppSamplers );
 
         pDeviceContext->IASetInputLayout( NULL );
         pDeviceContext->IASetVertexBuffers( 0, AMD_ARRAY_SIZE(pNullBuffer), pNullBuffer, NullStride, NullOffset );
@@ -153,9 +157,13 @@ namespace AMD
 
         // Unbind RTVs and SRVs back to NULL (otherwise D3D will throw warnings)
         if (ppUAVs == NULL)
+        {
             pDeviceContext->OMSetRenderTargets( AMD_ARRAY_SIZE(pNullRTV), pNullRTV, NULL );
+        }
         else
+        {
             pDeviceContext->OMSetRenderTargetsAndUnorderedAccessViews( uNumRTVs, pNullRTV, NULL, uStartUAV, uNumUAVs, pNullUAV, NULL);
+        }
 
         pDeviceContext->PSSetShaderResources( 0, AMD_ARRAY_SIZE(pNullSRV), pNullSRV );
 
@@ -178,12 +186,12 @@ namespace AMD
         ID3D11RasterizerState *    pOutputRS,
         int                        nCount)
     {
-        float white[] = {1,1,1,1};
+        float white[] = {1, 1, 1, 1};
         ID3D11ShaderResourceView* pNullSRV[8]    = { NULL };
         ID3D11RenderTargetView*   pNullRTV[8]    = { NULL };
         ID3D11Buffer*             pNullBuffer[8] = { NULL };
         UINT NullStride[8] = { 0 };
-        UINT NullOffset[8] = { 0 } ;
+        UINT NullOffset[8] = { 0 };
 
         if ((pDeviceContext == NULL || pVS == NULL || pPS == NULL || (ppRTVs == NULL && pDSV == NULL)))
         {
