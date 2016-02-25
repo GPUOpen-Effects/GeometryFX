@@ -43,19 +43,19 @@ struct PS_FullscreenIndexRTInput
     uint   rtIndex  : SV_RenderTargetArrayIndex;
 };
 
-// The ScreenQuad shader is used to clear a subregion of a depth map 
+// The ScreenQuad shader is used to clear a subregion of a depth map
 // Cleaning a rectangle in depth map is otherwise problematic
 PS_FullscreenInput vsScreenQuad(uint vertexId : SV_VERTEXID)
 {
 
     PS_FullscreenInput vertex[6] =
     {
-        { -1.0f, -1.0f, 1.0f, 1.0f }, { 0.0f, 1.0f },
-        { -1.0f,  1.0f, 1.0f, 1.0f }, { 0.0f, 0.0f },
-        {  1.0f, -1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f },
-        {  1.0f, -1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f },
-        { -1.0f,  1.0f, 1.0f, 1.0f }, { 0.0f, 0.0f },
-        {  1.0f,  1.0f, 1.0f, 1.0f }, { 1.0f, 0.0f },
+        { -1.0f, -1.0f, 1.0f, 1.0f }, { 0.0f,  1.0f },
+        { -1.0f,  1.0f, 1.0f, 1.0f }, { 0.0f,  0.0f },
+        {  1.0f, -1.0f, 1.0f, 1.0f }, { 1.0f,  1.0f },
+        {  1.0f, -1.0f, 1.0f, 1.0f }, { 1.0f,  1.0f },
+        { -1.0f,  1.0f, 1.0f, 1.0f }, { 0.0f,  0.0f },
+        {  1.0f,  1.0f, 1.0f, 1.0f }, { 1.0f,  0.0f },
     };
 
     return vertex[vertexId % 6];
@@ -66,9 +66,9 @@ PS_FullscreenInput vsFullscreen(uint vertexId : SV_VERTEXID)
 
     PS_FullscreenInput vertex[3] =
     {
-        { -1.0f, -1.0f, 0.0f, 1.0f }, { 0.0f, 1.0f },
-        { -1.0f,  3.0f, 0.0f, 1.0f }, { 0.0f,-1.0f },
-        {  3.0f, -1.0f, 0.0f, 1.0f }, { 2.0f, 1.0f }
+        { -1.0f, -1.0f, 0.0f, 1.0f }, { 0.0f,  1.0f },
+        { -1.0f,  3.0f, 0.0f, 1.0f }, { 0.0f, -1.0f },
+        {  3.0f, -1.0f, 0.0f, 1.0f }, { 2.0f,  1.0f }
     };
 
     return vertex[vertexId % 3];
@@ -78,9 +78,9 @@ GS_FullscreenIndexRTInput vsFullscreenIndexRT(uint indexId : SV_VERTEXID)
 {
     GS_FullscreenIndexRTInput vertex[3] =
     {
-        { -1.0f, -1.0f, 0.0f, 1.0f }, { 0.0f, 1.0f }, 0,
-        { -1.0f,  3.0f, 0.0f, 1.0f }, { 0.0f,-1.0f }, 0,
-        {  3.0f, -1.0f, 0.0f, 1.0f }, { 2.0f, 1.0f }, 0
+        { -1.0f, -1.0f, 0.0f, 1.0f }, { 0.0f,  1.0f }, 0,
+        { -1.0f,  3.0f, 0.0f, 1.0f }, { 0.0f, -1.0f }, 0,
+        {  3.0f, -1.0f, 0.0f, 1.0f }, { 2.0f,  1.0f }, 0
     };
 
     uint vertexId = indexId % 3;

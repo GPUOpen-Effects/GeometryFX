@@ -119,13 +119,13 @@ namespace AMD
                 t2d_desc.Format = T2D_Format;
 
                 t2d_desc.BindFlags = 0;
-                if (SRV_Format != DXGI_FORMAT_UNKNOWN)    t2d_desc.BindFlags |= D3D11_BIND_SHADER_RESOURCE;
-                if (RTV_Format != DXGI_FORMAT_UNKNOWN)    t2d_desc.BindFlags |= D3D11_BIND_RENDER_TARGET;
-                if (DSV_Format != DXGI_FORMAT_UNKNOWN)    t2d_desc.BindFlags |= D3D11_BIND_DEPTH_STENCIL;
-                if (UAV_Format != DXGI_FORMAT_UNKNOWN)    t2d_desc.BindFlags |= D3D11_BIND_UNORDERED_ACCESS;
-                if (DSV_RO_Format != DXGI_FORMAT_UNKNOWN) t2d_desc.BindFlags |= D3D11_BIND_DEPTH_STENCIL;
+                if (SRV_Format != DXGI_FORMAT_UNKNOWN)    { t2d_desc.BindFlags |= D3D11_BIND_SHADER_RESOURCE;  }
+                if (RTV_Format != DXGI_FORMAT_UNKNOWN)    { t2d_desc.BindFlags |= D3D11_BIND_RENDER_TARGET;    }
+                if (DSV_Format != DXGI_FORMAT_UNKNOWN)    { t2d_desc.BindFlags |= D3D11_BIND_DEPTH_STENCIL;    }
+                if (UAV_Format != DXGI_FORMAT_UNKNOWN)    { t2d_desc.BindFlags |= D3D11_BIND_UNORDERED_ACCESS; }
+                if (DSV_RO_Format != DXGI_FORMAT_UNKNOWN) { t2d_desc.BindFlags |= D3D11_BIND_DEPTH_STENCIL;    }
 
-                if (bCube) t2d_desc.MiscFlags = D3D11_RESOURCE_MISC_TEXTURECUBE;
+                if (bCube) { t2d_desc.MiscFlags = D3D11_RESOURCE_MISC_TEXTURECUBE; }
 
                 D3D11_SUBRESOURCE_DATA subresource_data;
                 memset(&subresource_data, 0, sizeof(subresource_data));
@@ -283,7 +283,9 @@ namespace AMD
             if (bCube && DXGI_FORMAT_UNKNOWN != RTV_Format)
             {
                 for (int i = 0; i < 6; i++)
+                {
                     AMD_SAFE_RELEASE(_rtv_cube[i]);
+                }
 
                 D3D11_RENDER_TARGET_VIEW_DESC rtv_desc;
                 memset(&rtv_desc, 0, sizeof(rtv_desc));
@@ -360,7 +362,9 @@ namespace AMD
             if (bCube && DXGI_FORMAT_UNKNOWN != DSV_Format)
             {
                 for (int i = 0; i < 6; i++)
+                {
                     AMD_SAFE_RELEASE(_dsv_cube[i]);
+                }
 
                 D3D11_DEPTH_STENCIL_VIEW_DESC dsv_desc;
                 memset(&dsv_desc, 0, sizeof(dsv_desc));
