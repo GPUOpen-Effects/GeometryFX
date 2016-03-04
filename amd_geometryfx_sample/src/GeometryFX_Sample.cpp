@@ -466,7 +466,7 @@ class Application
         , shadowMapResolution(-1)
         , pipelineStatsTrianglesIn(0)
         , pipelineStatsTrianglesOut(0)
-        , enabledFilters(0xFF)
+        , enabledFilters(0xFF & ~AMD::GeometryFX_FilterSmallPrimitives)
         , benchmarkMode(false)
         , benchmarkFrameCount(32)
         , benchmarkActive(false)
@@ -1113,7 +1113,8 @@ HRESULT CALLBACK OnD3D11CreateDevice(
 
     // Setup the camera's view parameters
     g_Camera.SetViewParams(
-        XMVectorSet(0.0f, 0.0f, -2.0f, 1.0f), XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f));
+        XMVectorSet(-0.409059107f, -0.047107596f,  0.101811841f, 0.0f),
+        XMVectorSet( 0.553191245f, -0.239557669f, -0.090638265f, 0.0f));
     if (g_Application.shadowMapResolution == -1)
     {
         // Setup the camera's projection parameters
