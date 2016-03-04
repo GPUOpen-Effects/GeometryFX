@@ -3,6 +3,10 @@
 
 The GeometryFX library provides convenient access to compute-based triangle filtering (CTF), which improves triangle throughput by filtering out triangles that do not contribute to the final image using a compute-preprocess.
 
+<div>
+  <a href="https://github.com/GPUOpen-Effects/GeometryFX/releases/latest/"><img src="http://gpuopen-effects.github.io/media/latest-release-button.svg" alt="Latest release" title="Latest release"></a>
+</div>
+
 ### Prerequisites
 * AMD Radeon&trade; GCN-based GPU (HD 7000 series or newer)
   * Or other DirectX&reg; 11 compatible discrete GPU with Shader Model 5 support 
