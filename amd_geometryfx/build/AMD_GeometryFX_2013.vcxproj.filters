@@ -26,6 +26,9 @@
     <ClInclude Include="..\inc\AMD_GeometryFX_Utility.h">
       <Filter>inc</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\AMD_GeometryFX_Internal.h">
+      <Filter>src</Filter>
+    </ClInclude>
     <ClInclude Include="..\src\GeometryFXMesh.h">
       <Filter>src</Filter>
     </ClInclude>

@@ -507,6 +507,7 @@ xcopy "..\lib\VS2012\x64\DLL_Release_MT\$(TargetName).lib"  "..\lib" /H /R /Y &g
     <ClInclude Include="..\inc\AMD_GeometryFX.h" />
     <ClInclude Include="..\inc\AMD_GeometryFX_Filtering.h" />
     <ClInclude Include="..\inc\AMD_GeometryFX_Utility.h" />
+    <ClInclude Include="..\src\AMD_GeometryFX_Internal.h" />
     <ClInclude Include="..\src\GeometryFXMesh.h" />
     <ClInclude Include="..\src\GeometryFXMeshManager.h" />
     <ClInclude Include="..\src\GeometryFXUtility_Internal.h" />

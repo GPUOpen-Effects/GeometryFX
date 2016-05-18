@@ -24,11 +24,25 @@
 
 #include "GeometryFXMesh.h"
 #include "GeometryFXUtility_Internal.h"
+#include "AMD_GeometryFX_Internal.h"
 
 #include <wrl.h>
 
 #include <memory>
 #include <vector>
+#include <array>
+
+#include <DirectXMath.h>
+
+#define AMD_GEOMETRY_FX_ENABLE_CLUSTER_CENTER_SAFETY_CHECK 1
+
+#ifdef min
+#undef min
+#endif
+
+#ifdef max
+#undef max
+#endif
 
 using namespace Microsoft::WRL;
 
@@ -117,11 +131,27 @@ class MeshManagerBase : public IMeshManager
     }
 };
 
+DirectX::XMVECTOR XM_CALLCONV GetOrthogonal (const DirectX::FXMVECTOR vector)
+{
+    if (abs (DirectX::XMVectorGetX (vector)) > abs (DirectX::XMVectorGetY (vector)))
+    {
+        const auto len = 1.0f / sqrt (
+            (DirectX::XMVectorGetX (vector) * DirectX::XMVectorGetX (vector)) + (DirectX::XMVectorGetZ (vector) * DirectX::XMVectorGetZ (vector)));
+        return DirectX::XMVectorSet (-DirectX::XMVectorGetZ (vector) * len, 0, DirectX::XMVectorGetX (vector) * len, 0);
+    }
+    else
+    {
+        const auto len = 1.0f / sqrt (
+            (DirectX::XMVectorGetY (vector) * DirectX::XMVectorGetY (vector)) + (DirectX::XMVectorGetZ (vector) * DirectX::XMVectorGetZ (vector)));
+        return DirectX::XMVectorSet (0, DirectX::XMVectorGetZ (vector) * len, -DirectX::XMVectorGetY (vector) * len, 0);
+    }
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 // Allocate everything from one large buffer
 class MeshManagerGlobal : public MeshManagerBase
 {
-  public:
+public:
     void Allocate(ID3D11Device *device, const int meshCount, const int *verticesPerMesh,
         const int *indicesPerMesh) override
     {
@@ -158,6 +188,171 @@ class MeshManagerGlobal : public MeshManagerBase
         CreateMeshConstantsBuffer(device);
     }
 
+    std::vector<StaticMesh::Cluster> CreateClusters (
+        const int indexCount,
+        const void* vertexData,
+        const void* indexData)
+    {
+        const int32_t* indices = static_cast<const int32_t*> (indexData);
+        const float* vertices = static_cast<const float*> (vertexData);
+
+        // 16 KiB stack space
+        struct Triangle
+        {
+            DirectX::XMVECTOR vtx[3];
+        };
+
+        std::array<Triangle, SmallBatchMergeConstants::BATCH_SIZE * 3> triangleCache;
+
+        const int triangleCount = indexCount / 3;
+        const int clusterCount = (triangleCount + SmallBatchMergeConstants::BATCH_SIZE - 1)
+            / SmallBatchMergeConstants::BATCH_SIZE;
+
+        std::vector<StaticMesh::Cluster> result (clusterCount);
+        for (int i = 0; i < clusterCount; ++i)
+        {
+            const int clusterStart = i * SmallBatchMergeConstants::BATCH_SIZE;
+            const int clusterEnd = std::min (clusterStart + SmallBatchMergeConstants::BATCH_SIZE,
+                triangleCount);
+
+            const int clusterTriangleCount = clusterEnd - clusterStart;
+
+            // Load all triangles into our local cache
+            for (int triangleIndex = clusterStart; triangleIndex < clusterEnd; ++triangleIndex)
+            {
+                triangleCache[triangleIndex - clusterStart].vtx[0] = DirectX::XMVectorSet (
+                    vertices[indices[triangleIndex * 3 + 0] * 3 + 0],
+                    vertices[indices[triangleIndex * 3 + 0] * 3 + 1],
+                    vertices[indices[triangleIndex * 3 + 0] * 3 + 2],
+                    1.0f
+                );
+
+                triangleCache[triangleIndex - clusterStart].vtx[1] = DirectX::XMVectorSet (
+                    vertices[indices[triangleIndex * 3 + 1] * 3 + 0],
+                    vertices[indices[triangleIndex * 3 + 1] * 3 + 1],
+                    vertices[indices[triangleIndex * 3 + 1] * 3 + 2],
+                    1.0f
+                );
+
+                triangleCache[triangleIndex - clusterStart].vtx[2] = DirectX::XMVectorSet (
+                    vertices[indices[triangleIndex * 3 + 2] * 3 + 0],
+                    vertices[indices[triangleIndex * 3 + 2] * 3 + 1],
+                    vertices[indices[triangleIndex * 3 + 2] * 3 + 2],
+                    1.0f
+                );
+            }
+
+            auto aabbMin = DirectX::XMVectorSplatInfinity ();
+            auto aabbMax = DirectX::XMVectorNegate (DirectX::XMVectorSplatInfinity ());
+
+            auto coneAxis = DirectX::XMVectorZero ();
+
+            for (int triangleIndex = 0; triangleIndex < clusterTriangleCount; ++triangleIndex)
+            {
+                const auto& triangle = triangleCache[triangleIndex];
+                for (int j = 0; j < 3; ++j)
+                {
+                    aabbMin = DirectX::XMVectorMin (aabbMin, triangle.vtx[j]);
+                    aabbMax = DirectX::XMVectorMax (aabbMax, triangle.vtx[j]);
+                }
+                
+                const auto triangleNormal = DirectX::XMVector3Normalize (
+                    DirectX::XMVector3Cross (
+                        DirectX::XMVectorSubtract (triangle.vtx[1], triangle.vtx[0]),
+                        DirectX::XMVectorSubtract( triangle.vtx[2], triangle.vtx[0])));
+
+                coneAxis = DirectX::XMVectorAdd (coneAxis, DirectX::XMVectorNegate (triangleNormal));
+            }
+
+            // This is the cosine of the cone opening angle, so 0 means it's
+            // 90° (which corresponds to a 180° wide cone, i.e. a plane)
+            float coneOpening = 0;
+            bool validCluster = true;
+
+            const auto center = DirectX::XMVectorDivide (DirectX::XMVectorAdd (aabbMin, aabbMax),
+                DirectX::XMVectorSet (2, 2, 2, 2));
+            coneAxis = DirectX::XMVector3Normalize (coneAxis);
+
+            float t = -std::numeric_limits<float>::infinity ();
+
+            // We nee a second pass to find the intersection of the line
+            // center + t * coneAxis with the plane defined by each
+            // triangle
+            for (int triangleIndex = 0; triangleIndex < clusterTriangleCount; ++triangleIndex)
+            {
+                const auto& triangle = triangleCache[triangleIndex];
+                // Compute the triangle plane from the three vertices
+                
+                const auto triangleNormal = DirectX::XMVector3Normalize (
+                    DirectX::XMVector3Cross (
+                        DirectX::XMVectorSubtract (triangle.vtx[1], triangle.vtx[0]),
+                        DirectX::XMVectorSubtract (triangle.vtx[2], triangle.vtx[0])));
+
+                const float directionalPart = DirectX::XMVectorGetX (
+                    DirectX::XMVector3Dot (coneAxis, DirectX::XMVectorNegate (triangleNormal)));
+
+                if (directionalPart < 0)
+                {
+                    // No solution for this cluster - at least two triangles
+                    // are facing each other
+                    validCluster = false;
+                    break;
+                }
+
+                // We need to intersect the plane with our cone ray which is
+                // center + t * coneAxis, and find the max
+                // t along the cone ray (which points into the empty
+                // space)
+                // See: https://en.wikipedia.org/wiki/Line%E2%80%93plane_intersection
+                const float td = DirectX::XMVectorGetX (DirectX::XMVectorDivide (
+                    DirectX::XMVector3Dot (DirectX::XMVectorSubtract(center, triangle.vtx[0]), triangleNormal),
+                    DirectX::XMVectorSet (-directionalPart, -directionalPart, -directionalPart, -directionalPart)));
+
+                t = std::max (t, td);
+
+                // We take the tangent plane and use this to restrict the cone
+                // radius
+                const auto u = GetOrthogonal (triangleNormal);
+                const auto v = DirectX::XMVector3Cross (u, triangleNormal);
+
+                coneOpening = std::max (coneOpening, abs (DirectX::XMVectorGetX (DirectX::XMVector3Dot (coneAxis, u))));
+                coneOpening = std::max (coneOpening, abs (DirectX::XMVectorGetX (DirectX::XMVector3Dot (coneAxis, v))));
+            }
+
+            result[i].aabbMax = aabbMax;
+            result[i].aabbMin = aabbMin;
+
+            result[i].coneAngleCosine = coneOpening;
+            result[i].coneCenter = DirectX::XMVectorAdd (center,
+                DirectX::XMVectorMultiply (coneAxis, DirectX::XMVectorSet (t, t, t, t)));
+            result[i].coneAxis = coneAxis;
+
+#if AMD_GEOMETRY_FX_ENABLE_CLUSTER_CENTER_SAFETY_CHECK
+            // If distance of coneCenter to the bounding box center is more
+            // than 16x the bounding box extent, the cluster is also invalid
+            // This is mostly a safety measure - if triangles are nearly
+            // parallel to coneAxis, t may become very large and unstable
+            const float aabbSize = DirectX::XMVectorGetX (DirectX::XMVector3Length (DirectX::XMVectorSubtract (aabbMax, aabbMin)));
+            const float coneCenterToCenterDistance = DirectX::XMVectorGetX (
+                DirectX::XMVector3Length (
+                    DirectX::XMVectorSubtract (result[i].coneCenter,
+                        DirectX::XMVectorDivide (
+                            DirectX::XMVectorAdd (aabbMax, aabbMin),
+                            DirectX::XMVectorSet (2, 2, 2, 2))
+            )));
+
+            if (coneCenterToCenterDistance > (16 * aabbSize))
+            {
+                validCluster = false;
+            }
+#endif
+
+            result[i].valid = validCluster;
+        }
+
+        return result;
+    }
+
     void SetData(ID3D11Device * /* device */, ID3D11DeviceContext *context, const int meshIndex,
         const void *vertexData, const void *indexData) override
     {
@@ -173,6 +368,9 @@ class MeshManagerGlobal : public MeshManagerBase
         dstBox.left = meshes_[meshIndex]->indexOffset;
         dstBox.right = dstBox.left + meshes_[meshIndex]->indexCount * sizeof(int);
         context->UpdateSubresource(indexBuffer_.Get(), 0, &dstBox, indexData, 0, 0);
+
+        meshes_[meshIndex]->clusters = CreateClusters (meshes_[meshIndex]->indexCount,
+            vertexData, indexData);
     }
 
   private:

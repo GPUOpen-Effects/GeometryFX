@@ -24,7 +24,7 @@
 #define AMD_GEOMETRYFX_H
 
 #   define AMD_GEOMETRYFX_VERSION_MAJOR             1
-#   define AMD_GEOMETRYFX_VERSION_MINOR             1
+#   define AMD_GEOMETRYFX_VERSION_MINOR             2
 #   define AMD_GEOMETRYFX_VERSION_PATCH             0
 
 // default to static lib

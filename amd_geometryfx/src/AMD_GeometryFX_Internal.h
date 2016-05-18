@@ -20,59 +20,19 @@
 // THE SOFTWARE.
 //
 
-#ifndef AMD_GEOMETRYFX_MESH_H
-#define AMD_GEOMETRYFX_MESH_H
-
-#include <d3d11.h>
-#include <wrl.h>
-#include <vector>
-
-#include <DirectXMath.h>
-
+#ifndef AMD_GEOMETRYFX_INTERNAL_H
+#define AMD_GEOMETRYFX_INTERNAL_H
 namespace AMD
 {
 namespace GeometryFX_Internal
 {
-
-class StaticMesh
+struct SmallBatchMergeConstants
 {
-public:
-    StaticMesh(const int vertexCount, const int indexCount, const int meshIndex);
-
-    virtual ~StaticMesh();
-
-public:
-    Microsoft::WRL::ComPtr<ID3D11Buffer> vertexBuffer;
-    Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> vertexBufferSRV;
-    Microsoft::WRL::ComPtr<ID3D11Buffer> indexBuffer;
-    Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> indexBufferSRV;
-    Microsoft::WRL::ComPtr<ID3D11Buffer> meshConstantsBuffer;
-
-    int vertexCount;
-    int faceCount;
-    int indexCount;
-    int meshIndex;
-
-    int indexOffset;
-    int vertexOffset;
-
-    struct Cluster
-    {
-        DirectX::XMVECTOR aabbMin, aabbMax;
-        DirectX::XMVECTOR coneCenter, coneAxis;
-
-        float coneAngleCosine;
-        bool valid;
-    };
-
-    std::vector<Cluster> clusters;
-
-private:
-    StaticMesh(const StaticMesh &);
-    StaticMesh &operator=(const StaticMesh &);
+    // If this changes, the shaders have to be recompiled as well
+    static const int BATCH_SIZE = 4 * 64; // Should be a multiple of the wavefront size
+    static const int BATCH_COUNT = 1 * 384;
 };
+}
+}
 
-} // namespace GeometryFX_Internal
-} // namespace AMD
-
-#endif // AMD_GEOMETRYFX_MESH_H
+#endif

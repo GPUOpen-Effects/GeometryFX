@@ -40,7 +40,8 @@ enum GEOMETRYFX_FILTER
     GeometryFX_FilterDuplicateIndices = 0x1,
     GeometryFX_FilterBackface = 0x2,
     GeometryFX_FilterFrustum = 0x8,
-    GeometryFX_FilterSmallPrimitives = 0x20
+    GeometryFX_FilterSmallPrimitives = 0x20,
+    GeometryFX_ClusterFilterBackface = 0x1 << 10
 };
 
 struct GeometryFX_FilterStatistics
@@ -49,12 +50,18 @@ struct GeometryFX_FilterStatistics
         : trianglesProcessed(0)
         , trianglesRendered(0)
         , trianglesCulled(0)
+        , clustersProcessed (0)
+        , clustersRendered (0)
+        , clustersCulled (0)
     {
     }
 
     int64 trianglesProcessed;
     int64 trianglesRendered;
     int64 trianglesCulled;
+    int64 clustersProcessed;
+    int64 clustersRendered;
+    int64 clustersCulled;
 };
 
 struct GeometryFX_FilterRenderOptions

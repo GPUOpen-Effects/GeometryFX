@@ -466,7 +466,7 @@ class Application
         , shadowMapResolution(-1)
         , pipelineStatsTrianglesIn(0)
         , pipelineStatsTrianglesOut(0)
-        , enabledFilters(0xFF & ~AMD::GeometryFX_FilterSmallPrimitives)
+        , enabledFilters(0xFFFFFFFF)
         , benchmarkMode(false)
         , benchmarkFrameCount(32)
         , benchmarkActive(false)
@@ -491,6 +491,8 @@ class Application
 
     int64_t pipelineStatsTrianglesIn;
     int64_t pipelineStatsTrianglesOut;
+    int64_t pipelineStatsClustersIn;
+    int64_t pipelineStatsClustersOut;
 
     uint32_t enabledFilters;
 
@@ -729,6 +731,8 @@ class Application
 
         pipelineStatsTrianglesIn = filterStatistics.trianglesProcessed;
         pipelineStatsTrianglesOut = filterStatistics.trianglesRendered;
+        pipelineStatsClustersIn = filterStatistics.clustersProcessed;
+        pipelineStatsClustersOut = filterStatistics.clustersRendered;
 
         D3D11_VIEWPORT viewport = {};
         viewport.MaxDepth = 1.0f;
@@ -772,6 +776,8 @@ class Application
     {
         pipelineStatsTrianglesIn = 0;
         pipelineStatsTrianglesOut = 0;
+        pipelineStatsClustersIn = 0;
+        pipelineStatsClustersOut = 0;
 
         context->ClearDepthStencilView(
             resolutionDependentResources.depthView.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
@@ -850,7 +856,8 @@ enum GEOMETRYFX_SAMPLE_IDC
     IDC_TOGGLE_CULL_INDEX_FILTER,
     IDC_TOGGLE_CULL_BACKFACE,
     IDC_TOGGLE_CULL_CLIP,
-    IDC_CULL_SMALL_PRIMITIVES,
+    IDC_TOGGLE_CULL_SMALL_PRIMITIVES,
+    IDC_TOGGLE_CULL_CLUSTER_BACKFACE,
     IDC_NUM_CONTROL_IDS // THIS ONE SHOULD ALWAYS BE LAST!!!!!
 };
 
@@ -860,6 +867,7 @@ CDXUTCheckBox *g_UI_cullIndexFilterCheckBox;
 CDXUTCheckBox *g_UI_cullBackfaceCheckBox;
 CDXUTCheckBox *g_UI_cullClipCheckBox;
 CDXUTCheckBox *g_UI_cullSmallPrimitivesCheckBox;
+CDXUTCheckBox *g_UI_cullClusterBackfaceCheckBox;
 
 const int g_MaxApplicationControlID = IDC_NUM_CONTROL_IDS;
 
@@ -1042,11 +1050,17 @@ void InitApp()
         TestFlag(g_Application.enabledFilters, AMD::GeometryFX_FilterFrustum), 0, false,
         &g_UI_cullClipCheckBox);
 
-    g_HUD.m_GUI.AddCheckBox(IDC_CULL_SMALL_PRIMITIVES, L"Small primitives",
+    g_HUD.m_GUI.AddCheckBox(IDC_TOGGLE_CULL_SMALL_PRIMITIVES, L"Small primitives",
         AMD::HUD::iElementOffset, iY += AMD::HUD::iElementDelta, AMD::HUD::iElementWidth,
         AMD::HUD::iElementHeight,
         TestFlag(g_Application.enabledFilters, AMD::GeometryFX_FilterSmallPrimitives), 0, false,
         &g_UI_cullSmallPrimitivesCheckBox);
+
+    g_HUD.m_GUI.AddCheckBox (IDC_TOGGLE_CULL_CLUSTER_BACKFACE, L"Backface cluster cull",
+        AMD::HUD::iElementOffset, iY += AMD::HUD::iElementDelta, AMD::HUD::iElementWidth,
+        AMD::HUD::iElementHeight,
+        TestFlag (g_Application.enabledFilters, AMD::GeometryFX_ClusterFilterBackface), 0, false,
+        &g_UI_cullClusterBackfaceCheckBox);
 }
 
 //--------------------------------------------------------------------------------------
@@ -1072,12 +1086,28 @@ void RenderText()
     if (g_Application.instrumentIndirectRender && g_Application.enableFiltering)
     {
         wchar_t buffer[512] = {};
-        swprintf_s(buffer, L"Triangle stats: In %I64d, out %I64d (filtered: %.2f%%) ",
-            g_Application.pipelineStatsTrianglesIn, g_Application.pipelineStatsTrianglesOut,
-            100 -
-                static_cast<float>(g_Application.pipelineStatsTrianglesOut) /
-                    static_cast<float>(g_Application.pipelineStatsTrianglesIn) * 100.0f);
-        g_pTxtHelper->DrawTextLine(buffer);
+
+        // We can have 0 triangles if the cluster culling got rid of all -
+        // skip this line then
+        if (g_Application.pipelineStatsTrianglesIn > 0)
+        {
+            swprintf_s(buffer, L"Triangle stats: In %I64d, out %I64d (filtered: %.2f%%) ",
+                g_Application.pipelineStatsTrianglesIn, g_Application.pipelineStatsTrianglesOut,
+                100 -
+                    static_cast<float>(g_Application.pipelineStatsTrianglesOut) /
+                        static_cast<float>(g_Application.pipelineStatsTrianglesIn) * 100.0f);
+            g_pTxtHelper->DrawTextLine(buffer);
+        }
+
+        if ((g_Application.enabledFilters & AMD::GeometryFX_ClusterFilterBackface) == AMD::GeometryFX_ClusterFilterBackface)
+        {
+            swprintf_s (buffer, L"Cluster stats: In %I64d, out %I64d (filtered: %.2f%%) ",
+                g_Application.pipelineStatsClustersIn, g_Application.pipelineStatsClustersOut,
+                100 -
+                static_cast<float>(g_Application.pipelineStatsClustersOut) /
+                static_cast<float>(g_Application.pipelineStatsClustersIn) * 100.0f);
+            g_pTxtHelper->DrawTextLine (buffer);
+        }
     }
 
     g_pTxtHelper->SetInsertionPos(
@@ -1436,10 +1466,17 @@ void CALLBACK OnGUIEvent(UINT nEvent, int nControlID, CDXUTControl *pControl, vo
             break;
         }
 
-        case IDC_CULL_SMALL_PRIMITIVES:
+        case IDC_TOGGLE_CULL_SMALL_PRIMITIVES:
         {
             SetOrClearFlag(static_cast<Application *>(pUserContext)->enabledFilters,
                 AMD::GeometryFX_FilterSmallPrimitives, g_UI_cullSmallPrimitivesCheckBox->GetChecked());
+            break;
+        }
+
+        case IDC_TOGGLE_CULL_CLUSTER_BACKFACE:
+        {
+            SetOrClearFlag (static_cast<Application *>(pUserContext)->enabledFilters,
+            AMD::GeometryFX_ClusterFilterBackface, g_UI_cullClusterBackfaceCheckBox->GetChecked ());
             break;
         }
     }

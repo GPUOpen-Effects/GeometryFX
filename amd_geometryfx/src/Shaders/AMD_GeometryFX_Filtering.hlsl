@@ -142,8 +142,9 @@ bool CullTriangle (uint indices [3], float4 vertices [3])
 #endif
 
 #if ENABLE_CULL_FRUSTUM || ENABLE_CULL_SMALL_PRIMITIVES
+    int verticesInFrontOfNearPlane = 0;
+
     // Transform vertices[i].xy into normalized 0..1 screen space
-    uint verticesInFrontOfNearPlane = 0;
     for (uint i = 0; i < 3; ++i)
     {
         vertices[i].xy /= vertices[i].w;
@@ -154,7 +155,6 @@ bool CullTriangle (uint indices [3], float4 vertices [3])
             ++verticesInFrontOfNearPlane;
         }
     }
-    bool intersectNearPlane = verticesInFrontOfNearPlane > 0;
 #endif
 
 #if ENABLE_CULL_SMALL_PRIMITIVES
@@ -195,7 +195,7 @@ bool CullTriangle (uint indices [3], float4 vertices [3])
             maxBB = max (screenSpacePosition, maxBB);
         }
 
-        if (!intersectNearPlane && insideGuardBand)
+        if (verticesInFrontOfNearPlane == 0 && insideGuardBand)
         {
             /**
             Test is:
@@ -221,10 +221,12 @@ bool CullTriangle (uint indices [3], float4 vertices [3])
 #if ENABLE_CULL_FRUSTUM
     if (cullFlags & CULL_FRUSTUM)
     {
-        // Cull vertices that are entirely behind the viewer
-        cull = cull || (verticesInFrontOfNearPlane == 3);
+        if (verticesInFrontOfNearPlane == 3)
+        {
+            cull = true;
+        }
 
-        if (!intersectNearPlane)
+        if (verticesInFrontOfNearPlane == 0)
         {
             float minx = min (min (vertices[0].x, vertices[1].x), vertices[2].x);
             float miny = min (min (vertices[0].y, vertices[1].y), vertices[2].y);
@@ -233,7 +235,6 @@ bool CullTriangle (uint indices [3], float4 vertices [3])
 
             cull = cull || (maxx < 0) || (maxy < 0) || (minx > 1) || (miny > 1);
         }
-
     }
 #endif
 
@@ -243,10 +244,6 @@ bool CullTriangle (uint indices [3], float4 vertices [3])
 #ifdef AMD_COMPILE_COMPUTE_SHADER
 groupshared uint workGroupOutputSlot;
 groupshared uint workGroupIndexCount;
-
-#ifndef SMALL_BATCH_COUNT
-#define SMALL_BATCH_COUNT 256
-#endif
 
 #ifndef SMALL_BATCH_SIZE
 #define SMALL_BATCH_SIZE 256
