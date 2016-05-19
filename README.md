@@ -43,9 +43,10 @@ The library makes heavy use of multi-draw indirect. This is a DirectX 11 driver 
 
 GeometryFX comes with several built-in filters:
 
-* Backface culling: This is generally the most efficient filter, which removes back-facing triangles. In order to avoid clipping, the culling is performed in homogenous coordinates.
+* Backface culling: This is generally the most efficient filter, which removes back-facing triangles. In order to avoid clipping, the culling is performed in homogeneous coordinates.
 * Small primitive filtering: Triangles which are guaranteed to not hit a sample are removed. This filter tests the bounding box of the triangle against the sample grid, and requires the triangle to be projected.
 * Frustum culling: Cull triangles against the view frustum. While most games perform per-object culling, this filter runs per-triangle.
+* Cluster culling: Filter complete clusters of triangles before going into per-triangle filtering.
 
 The filters are executed in a compute shader which writes the new index buffer and the draw calls for each batch.
 
@@ -54,6 +55,9 @@ The filters are executed in a compute shader which writes the new index buffer a
 Applications which want to integrate GeometryFX as-is are expected to allocate all static geometry through GeometryFX. The API exposes a function to obtain the storage location, which can be used for normal rendering of the geometry. Notice that GeometryFX will aggressively pool all data to allow as many draw calls as possible to be served from the same buffer.
 
 At run-time, the application has to provide the view/projection matrix to GeometryFX and the list of objects that have to be rendered. Once everything has been submitted, GeometryFX will execute the filtering and rendering.
+
+### Learn More
+* [Cluster culling blog post on GPUOpen](http://gpuopen.com/geometryfx-1-2-cluster-culling/)
 
 ### Third-Party Software
 * DXUT is distributed under the terms of the MIT License. See `dxut\MIT.txt`.
