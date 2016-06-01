@@ -5,13 +5,13 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GeometryFX_Sample", "Geomet
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AMD_GeometryFX", "..\..\AMD_GeometryFX\build\AMD_GeometryFX_2015.vcxproj", "{E05C77A9-1EE7-4F02-AF03-575FB4829AC5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AMD_LIB", "..\..\AMD_LIB\build\AMD_LIB_2015.vcxproj", "{0D2AEA47-7909-69E3-8221-F4B9EE7FCF44}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AMD_LIB", "..\..\amd_lib\shared\d3d11\build\AMD_LIB_2015.vcxproj", "{0D2AEA47-7909-69E3-8221-F4B9EE7FCF44}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AMD_SDK", "..\..\AMD_SDK\build\AMD_SDK_2015.vcxproj", "{EBB939DC-98E4-49DF-B1F1-D2E80A11F60A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AMD_SDK", "..\..\framework\d3d11\amd_sdk\build\AMD_SDK_2015.vcxproj", "{EBB939DC-98E4-49DF-B1F1-D2E80A11F60A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DXUT", "..\..\DXUT\Core\DXUT_2015.vcxproj", "{85344B7F-5AA0-4E12-A065-D1333D11F6CA}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DXUT", "..\..\framework\d3d11\dxut\Core\DXUT_2015.vcxproj", "{85344B7F-5AA0-4E12-A065-D1333D11F6CA}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DXUTOpt", "..\..\DXUT\Optional\DXUTOpt_2015.vcxproj", "{61B333C2-C4F7-4CC1-A9BF-83F6D95588EB}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DXUTOpt", "..\..\framework\d3d11\dxut\Optional\DXUTOpt_2015.vcxproj", "{61B333C2-C4F7-4CC1-A9BF-83F6D95588EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

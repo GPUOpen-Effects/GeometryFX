@@ -62,20 +62,20 @@
       <WarningLevel>Level4</WarningLevel>
       <TreatWarningAsError>true</TreatWarningAsError>
       <PreprocessorDefinitions>ASSIMP_DLL;AMD_GEOMETRYFX_COMPILE_DYNAMIC_LIB=1;WIN32;_DEBUG;DEBUG;PROFILE;_WINDOWS;_WIN32_WINNT=0x0601;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\src\ResourceFiles;..\..\AMD_GeometryFX\inc;..\..\AMD_LIB\inc;..\..\AMD_SDK\inc;..\..\AGS_LIB\inc;..\..\DXUT\Core;..\..\DXUT\Optional;..\..\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\src\ResourceFiles;..\..\AMD_GeometryFX\inc;..\..\amd_lib\shared\common\inc;..\..\amd_lib\shared\d3d11\inc;..\..\amd_lib\ags_lib\inc;..\..\framework\d3d11\amd_sdk\inc;..\..\framework\d3d11\dxut\Core;..\..\framework\d3d11\dxut\Optional;..\..\third_party\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <FloatingPointModel>Fast</FloatingPointModel>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>ASSIMP_DLL;AMD_GEOMETRYFX_COMPILE_DYNAMIC_LIB=1;WIN32;_DEBUG;DEBUG;PROFILE;_WINDOWS;_WIN32_WINNT=0x0601;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\src\ResourceFiles;..\..\AMD_GeometryFX\inc;..\..\AMD_LIB\inc;..\..\AMD_SDK\inc;..\..\AGS_LIB\inc;..\..\DXUT\Core;..\..\DXUT\Optional;..\..\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\src\ResourceFiles;..\..\AMD_GeometryFX\inc;..\..\amd_lib\shared\common\inc;..\..\amd_lib\shared\d3d11\inc;..\..\amd_lib\ags_lib\inc;..\..\framework\d3d11\amd_sdk\inc;..\..\framework\d3d11\dxut\Core;..\..\framework\d3d11\dxut\Optional;..\..\third_party\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>assimp_x64_2015.lib;amd_ags_x64.lib;d3dcompiler.lib;dxguid.lib;winmm.lib;comctl32.lib;Usp10.lib;Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\assimp\lib;..\..\AGS_LIB\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\third_party\assimp\lib;..\..\amd_lib\ags_lib\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <TreatLinkerWarningAsErrors>true</TreatLinkerWarningAsErrors>
     </Link>
     <Manifest>
@@ -85,8 +85,8 @@
       <Command>if not exist "..\bin\d3dcompiler_47.dll" if exist "$(ProgramFiles)\Windows Kits\8.1\Redist\D3D\x64\d3dcompiler_47.dll" xcopy "$(ProgramFiles)\Windows Kits\8.1\Redist\D3D\x64\d3dcompiler_47.dll" "..\bin" /H /R /Y &gt; nul
 if exist "..\..\AMD_GeometryFX\lib\GPUOpen_GeometryFX_x64d.dll" xcopy "..\..\AMD_GeometryFX\lib\GPUOpen_GeometryFX_x64d.dll"  "..\bin" /H /R /Y &gt; nul
 if exist "..\..\AMD_GeometryFX\lib\GPUOpen_GeometryFX_x64.dll"  xcopy "..\..\AMD_GeometryFX\lib\GPUOpen_GeometryFX_x64.dll"   "..\bin" /H /R /Y &gt; nul
-xcopy "..\..\AGS_LIB\lib\amd_ags_x64.dll"  "..\bin" /H /R /Y &gt; nul
-xcopy "..\..\assimp\lib\assimp_x64_2015.dll"  "..\bin" /H /R /Y &gt; nul</Command>
+xcopy "..\..\amd_lib\ags_lib\lib\amd_ags_x64.dll"  "..\bin" /H /R /Y &gt; nul
+xcopy "..\..\third_party\assimp\lib\assimp_x64_2015.dll"  "..\bin" /H /R /Y &gt; nul</Command>
       <Message>Copying dependencies...</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -96,7 +96,7 @@ xcopy "..\..\assimp\lib\assimp_x64_2015.dll"  "..\bin" /H /R /Y &gt; nul</Comman
       <WarningLevel>Level4</WarningLevel>
       <TreatWarningAsError>true</TreatWarningAsError>
       <PreprocessorDefinitions>ASSIMP_DLL;AMD_GEOMETRYFX_COMPILE_DYNAMIC_LIB=1;WIN32;NDEBUG;PROFILE;_WINDOWS;_WIN32_WINNT=0x0601;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\src\ResourceFiles;..\..\AMD_GeometryFX\inc;..\..\AMD_LIB\inc;..\..\AMD_SDK\inc;..\..\AGS_LIB\inc;..\..\DXUT\Core;..\..\DXUT\Optional;..\..\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\src\ResourceFiles;..\..\AMD_GeometryFX\inc;..\..\amd_lib\shared\common\inc;..\..\amd_lib\shared\d3d11\inc;..\..\amd_lib\ags_lib\inc;..\..\framework\d3d11\amd_sdk\inc;..\..\framework\d3d11\dxut\Core;..\..\framework\d3d11\dxut\Optional;..\..\third_party\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -107,7 +107,7 @@ xcopy "..\..\assimp\lib\assimp_x64_2015.dll"  "..\bin" /H /R /Y &gt; nul</Comman
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>ASSIMP_DLL;AMD_GEOMETRYFX_COMPILE_DYNAMIC_LIB=1;WIN32;NDEBUG;PROFILE;_WINDOWS;_WIN32_WINNT=0x0601;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\src\ResourceFiles;..\..\AMD_GeometryFX\inc;..\..\AMD_LIB\inc;..\..\AMD_SDK\inc;..\..\AGS_LIB\inc;..\..\DXUT\Core;..\..\DXUT\Optional;..\..\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\src\ResourceFiles;..\..\AMD_GeometryFX\inc;..\..\amd_lib\shared\common\inc;..\..\amd_lib\shared\d3d11\inc;..\..\amd_lib\ags_lib\inc;..\..\framework\d3d11\amd_sdk\inc;..\..\framework\d3d11\dxut\Core;..\..\framework\d3d11\dxut\Optional;..\..\third_party\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -115,7 +115,7 @@ xcopy "..\..\assimp\lib\assimp_x64_2015.dll"  "..\bin" /H /R /Y &gt; nul</Comman
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>assimp_x64_2015.lib;amd_ags_x64.lib;d3dcompiler.lib;dxguid.lib;winmm.lib;comctl32.lib;Usp10.lib;Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\assimp\lib;..\..\AGS_LIB\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\third_party\assimp\lib;..\..\amd_lib\ags_lib\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <TreatLinkerWarningAsErrors>true</TreatLinkerWarningAsErrors>
     </Link>
     <Manifest>
@@ -125,8 +125,8 @@ xcopy "..\..\assimp\lib\assimp_x64_2015.dll"  "..\bin" /H /R /Y &gt; nul</Comman
       <Command>if not exist "..\bin\d3dcompiler_47.dll" if exist "$(ProgramFiles)\Windows Kits\8.1\Redist\D3D\x64\d3dcompiler_47.dll" xcopy "$(ProgramFiles)\Windows Kits\8.1\Redist\D3D\x64\d3dcompiler_47.dll" "..\bin" /H /R /Y &gt; nul
 if exist "..\..\AMD_GeometryFX\lib\GPUOpen_GeometryFX_x64d.dll" xcopy "..\..\AMD_GeometryFX\lib\GPUOpen_GeometryFX_x64d.dll"  "..\bin" /H /R /Y &gt; nul
 if exist "..\..\AMD_GeometryFX\lib\GPUOpen_GeometryFX_x64.dll"  xcopy "..\..\AMD_GeometryFX\lib\GPUOpen_GeometryFX_x64.dll"   "..\bin" /H /R /Y &gt; nul
-xcopy "..\..\AGS_LIB\lib\amd_ags_x64.dll"  "..\bin" /H /R /Y &gt; nul
-xcopy "..\..\assimp\lib\assimp_x64_2015.dll"  "..\bin" /H /R /Y &gt; nul</Command>
+xcopy "..\..\amd_lib\ags_lib\lib\amd_ags_x64.dll"  "..\bin" /H /R /Y &gt; nul
+xcopy "..\..\third_party\assimp\lib\assimp_x64_2015.dll"  "..\bin" /H /R /Y &gt; nul</Command>
       <Message>Copying dependencies...</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -144,19 +144,19 @@ xcopy "..\..\assimp\lib\assimp_x64_2015.dll"  "..\bin" /H /R /Y &gt; nul</Comman
     <ResourceCompile Include="..\src\ResourceFiles\GeometryFX_Sample.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\AMD_LIB\build\AMD_LIB_2015.vcxproj">
+    <ProjectReference Include="..\..\amd_lib\shared\d3d11\build\AMD_LIB_2015.vcxproj">
       <Project>{0D2AEA47-7909-69E3-8221-F4B9EE7FCF44}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\DXUT\Optional\DXUTOpt_2015.vcxproj">
+    <ProjectReference Include="..\..\framework\d3d11\dxut\Optional\DXUTOpt_2015.vcxproj">
       <Project>{61B333C2-C4F7-4CC1-A9BF-83F6D95588EB}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\DXUT\Core\DXUT_2015.vcxproj">
+    <ProjectReference Include="..\..\framework\d3d11\dxut\Core\DXUT_2015.vcxproj">
       <Project>{85344B7F-5AA0-4E12-A065-D1333D11F6CA}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\AMD_GeometryFX\build\AMD_GeometryFX_2015.vcxproj">
       <Project>{E05C77A9-1EE7-4F02-AF03-575FB4829AC5}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\AMD_SDK\build\AMD_SDK_2015.vcxproj">
+    <ProjectReference Include="..\..\framework\d3d11\amd_sdk\build\AMD_SDK_2015.vcxproj">
       <Project>{EBB939DC-98E4-49DF-B1F1-D2E80A11F60A}</Project>
     </ProjectReference>
   </ItemGroup>

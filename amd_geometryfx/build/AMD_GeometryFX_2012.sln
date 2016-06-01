@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AMD_GeometryFX", "AMD_GeometryFX_2012.vcxproj", "{E05C77A9-1EE7-4F02-AF03-575FB4829AC5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AMD_LIB", "..\..\AMD_LIB\build\AMD_LIB_2012.vcxproj", "{0D2AEA47-7909-69E3-8221-F4B9EE7FCF44}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AMD_LIB", "..\..\amd_lib\shared\d3d11\build\AMD_LIB_2012.vcxproj", "{0D2AEA47-7909-69E3-8221-F4B9EE7FCF44}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
