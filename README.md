@@ -62,7 +62,7 @@ For Visual Studio 2015, this version of Premake adds the `WindowsTargetPlatformV
 ### Third-Party Software
 * DXUT is distributed under the terms of the MIT License. See `framework\d3d11\dxut\MIT.txt`.
 * Premake is distributed under the terms of the BSD License. See `premake\LICENSE.txt`.
-* The Open Asset Import Library (assimp) is distributed under the terms of the BSD License. See `assimp\LICENSE`.
+* The Open Asset Import Library (assimp) is distributed under the terms of the BSD License. See `third_party\assimp\LICENSE`.
 
 DXUT and assimp are only used by the sample, not the core library. Only first-party software (specifically `ags_lib`, `amd_geometryfx`, and `amd_lib`) is needed to build the GeometryFX library.
 
