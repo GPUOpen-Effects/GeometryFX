@@ -131,22 +131,6 @@ class MeshManagerBase : public IMeshManager
     }
 };
 
-DirectX::XMVECTOR XM_CALLCONV GetOrthogonal (const DirectX::FXMVECTOR vector)
-{
-    if (abs (DirectX::XMVectorGetX (vector)) > abs (DirectX::XMVectorGetY (vector)))
-    {
-        const auto len = 1.0f / sqrt (
-            (DirectX::XMVectorGetX (vector) * DirectX::XMVectorGetX (vector)) + (DirectX::XMVectorGetZ (vector) * DirectX::XMVectorGetZ (vector)));
-        return DirectX::XMVectorSet (-DirectX::XMVectorGetZ (vector) * len, 0, DirectX::XMVectorGetX (vector) * len, 0);
-    }
-    else
-    {
-        const auto len = 1.0f / sqrt (
-            (DirectX::XMVectorGetY (vector) * DirectX::XMVectorGetY (vector)) + (DirectX::XMVectorGetZ (vector) * DirectX::XMVectorGetZ (vector)));
-        return DirectX::XMVectorSet (0, DirectX::XMVectorGetZ (vector) * len, -DirectX::XMVectorGetY (vector) * len, 0);
-    }
-}
-
 ///////////////////////////////////////////////////////////////////////////////
 // Allocate everything from one large buffer
 class MeshManagerGlobal : public MeshManagerBase
@@ -264,9 +248,10 @@ public:
                 coneAxis = DirectX::XMVectorAdd (coneAxis, DirectX::XMVectorNegate (triangleNormal));
             }
 
-            // This is the cosine of the cone opening angle, so 0 means it's
-            // 90° (which corresponds to a 180° wide cone, i.e. a plane)
-            float coneOpening = 0;
+            // This is the cosine of the cone opening angle - 1 means it's 0°,
+            // we're minimizing this value (at 0, it would mean the cone is 90°
+            // open)
+            float coneOpening = 1;
             bool validCluster = true;
 
             const auto center = DirectX::XMVectorDivide (DirectX::XMVectorAdd (aabbMin, aabbMax),
@@ -310,19 +295,14 @@ public:
 
                 t = std::max (t, td);
 
-                // We take the tangent plane and use this to restrict the cone
-                // radius
-                const auto u = GetOrthogonal (triangleNormal);
-                const auto v = DirectX::XMVector3Cross (u, triangleNormal);
-
-                coneOpening = std::max (coneOpening, abs (DirectX::XMVectorGetX (DirectX::XMVector3Dot (coneAxis, u))));
-                coneOpening = std::max (coneOpening, abs (DirectX::XMVectorGetX (DirectX::XMVector3Dot (coneAxis, v))));
+                coneOpening = std::min (coneOpening, directionalPart);
             }
 
             result[i].aabbMax = aabbMax;
             result[i].aabbMin = aabbMin;
 
-            result[i].coneAngleCosine = coneOpening;
+            // cos (PI/2 - acos (coneOpening))
+            result[i].coneAngleCosine = sqrtf (1 - coneOpening * coneOpening);
             result[i].coneCenter = DirectX::XMVectorAdd (center,
                 DirectX::XMVectorMultiply (coneAxis, DirectX::XMVectorSet (t, t, t, t)));
             result[i].coneAxis = coneAxis;
