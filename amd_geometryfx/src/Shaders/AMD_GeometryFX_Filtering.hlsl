@@ -241,7 +241,7 @@ bool CullTriangle (uint indices [3], float4 vertices [3])
     return cull;
 }
 
-#ifdef AMD_COMPILE_COMPUTE_SHADER
+#ifdef AMD_COMPILE_COMPUTE_SHADER 
 groupshared uint workGroupOutputSlot;
 groupshared uint workGroupIndexCount;
 
@@ -254,8 +254,14 @@ void FilterCS(
     uint3 inGroupId : SV_GroupThreadID,
     uint3 groupId : SV_GroupID )
 {
+    uint batchDrawIndex = smallBatchData[groupId.x].drawIndex;
+    
     if (inGroupId.x == 0)
     {
+        if (groupId.x == smallBatchData [groupId.x].drawBatchStart) {
+            indirectArgs[batchDrawIndex * 5] = 0;
+        }
+
         workGroupIndexCount = 0;
     }
 
@@ -267,8 +273,7 @@ void FilterCS(
     uint batchMeshIndex = smallBatchData [groupId.x].meshIndex;
     uint batchInputIndexOffset = (meshConstants [batchMeshIndex].indexOffset + smallBatchData [groupId.x].indexOffset) / 4;
     uint batchInputVertexOffset = meshConstants [batchMeshIndex].vertexOffset;
-    uint batchDrawIndex = smallBatchData [groupId.x].drawIndex;
-
+    
     if (inGroupId.x < smallBatchData [groupId.x].faceCount)
     {
         float4x4 worldView = drawConstants [batchDrawIndex].worldView;
@@ -319,13 +324,5 @@ void FilterCS(
         indirectArgs [batchDrawIndex * 5 + 3] = batchInputVertexOffset / 12; // 12 == sizeof (float3)
         indirectArgs [batchDrawIndex * 5 + 4] = batchDrawIndex;
     }
-}
-
-#define CLEAR_THREAD_COUNT 256
-
-[numthreads (CLEAR_THREAD_COUNT, 1, 1)]
-void ClearDrawIndirectArgsCS (uint3 id : SV_DispatchThreadID)
-{
-    indirectArgs[id.x * 5 + 0] = 0;
 }
 #endif
