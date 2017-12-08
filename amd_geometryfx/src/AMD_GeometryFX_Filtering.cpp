@@ -716,7 +716,7 @@ public:
                 D3D11_MAPPED_SUBRESOURCE mapping;
                 deviceContext_->Map(drawCallConstantBuffers_[currentDrawCall_].Get(), 0,
                     D3D11_MAP_WRITE_DISCARD, 0, &mapping);
-                ::memcpy(mapping.pData, &request, sizeof(request));
+                ::memcpy(mapping.pData, &request.dcb, sizeof(request.dcb));
                 deviceContext_->Unmap(drawCallConstantBuffers_[currentDrawCall_].Get(), 0);
             }
 
@@ -940,7 +940,8 @@ private:
         context->QueryInterface(IID_PPV_ARGS(&annotation)); // QueryInterface can fail with E_NOINTERFACE
 
         context->IASetInputLayout(depthOnlyLayout_.Get());
-        context->VSSetShader(depthOnlyVertexShader_.Get(), NULL, 0);
+		context->VSSetShader(depthOnlyVertexShader_.Get(), NULL, 0);
+		context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
         if (annotation.Get() != nullptr)
         {
