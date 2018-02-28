@@ -200,7 +200,7 @@ public:
             lastTriangle = std::min (
                 firstTriangle + SmallBatchMergeConstants::BATCH_SIZE, request.mesh->faceCount);
 
-            assert (currentCluster < request.mesh->clusters.size ());
+            assert (currentCluster < static_cast<int>(request.mesh->clusters.size ()));
             const auto& clusterInfo = request.mesh->clusters[currentCluster];
             ++currentCluster;
 
