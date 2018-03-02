@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="ResourceFiles">
@@ -9,20 +9,20 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\src\ResourceFiles\dpiaware.manifest">
-      <Filter>ResourceFiles</Filter>
-    </None>
-    <None Include="..\src\Shaders\GeometryFX_Sample.hlsl">
-      <Filter>Shaders</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="..\src\ResourceFiles\resource.h">
       <Filter>ResourceFiles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\GeometryFX_Sample.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\ResourceFiles\dpiaware.manifest">
+      <Filter>ResourceFiles</Filter>
+    </None>
+    <None Include="..\src\Shaders\GeometryFX_Sample.hlsl">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\src\ResourceFiles\GeometryFX_Sample.rc">

@@ -44,7 +44,7 @@ project ("AMD_" .. _AMD_LIBRARY_NAME)
    rtti "Off"
 
    -- Specify WindowsTargetPlatformVersion here for VS2015
-   windowstarget (_AMD_WIN_SDK_VERSION)
+   systemversion (_AMD_WIN_SDK_VERSION)
 
    files { "../inc/**.h", "../src/**.h", "../src/**.cpp", "../src/Shaders/**.hlsl" }
    includedirs { "../inc", "../../amd_lib/shared/common/inc", "../../amd_lib/shared/d3d11/inc", "../../amd_lib/ags_lib/inc" }
@@ -64,18 +64,22 @@ project ("AMD_" .. _AMD_LIBRARY_NAME)
 
    filter "configurations:*_Debug"
       defines { "WIN32", "_DEBUG", "_WINDOWS", "_WIN32_WINNT=0x0601" }
-      flags { "Symbols", "FatalWarnings", "Unicode" }
+      flags { "FatalWarnings" }
+	  symbols "On"
+	  characterset "Unicode"
       -- add "d" to the end of the library name for debug builds
       targetsuffix "d"
 
    filter "configurations:*_Release"
       defines { "WIN32", "NDEBUG", "_WINDOWS", "_WIN32_WINNT=0x0601" }
-      flags { "FatalWarnings", "Unicode" }
+      flags { "FatalWarnings" }
+	  characterset "Unicode"
       optimize "On"
 
    filter "configurations:DLL_Release_MT"
       defines { "WIN32", "NDEBUG", "_WINDOWS", "_WIN32_WINNT=0x0601" }
-      flags { "FatalWarnings", "Unicode" }
+      flags { "FatalWarnings" }
+	  characterset "Unicode"
       -- link against the static runtime to avoid introducing a dependency
       -- on the particular version of Visual Studio used to build the DLLs
       flags { "StaticRuntime" }

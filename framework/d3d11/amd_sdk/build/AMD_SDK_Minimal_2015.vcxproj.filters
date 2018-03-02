@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="inc">
@@ -10,14 +10,6 @@
     <Filter Include="src\Shaders">
       <UniqueIdentifier>{06ADC7FB-7262-40F1-FB56-3AC8670B37F5}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\src\Shaders\Line.hlsl">
-      <Filter>src\Shaders</Filter>
-    </None>
-    <None Include="..\src\Shaders\Sprite.hlsl">
-      <Filter>src\Shaders</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\inc\AMD_SDK.h">
@@ -97,5 +89,13 @@
     <ClCompile Include="..\src\crc.cpp">
       <Filter>src</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\Shaders\Line.hlsl">
+      <Filter>src\Shaders</Filter>
+    </None>
+    <None Include="..\src\Shaders\Sprite.hlsl">
+      <Filter>src\Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

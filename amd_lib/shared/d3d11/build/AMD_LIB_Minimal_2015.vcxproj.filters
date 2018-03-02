@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="common">
@@ -22,29 +22,6 @@
     <Filter Include="src\Shaders\SeparableFilter">
       <UniqueIdentifier>{4AE40765-B6F1-354B-3FD8-3136ABE40102}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\src\Shaders\AMD_FullscreenPass.hlsl">
-      <Filter>src\Shaders</Filter>
-    </None>
-    <None Include="..\src\Shaders\AMD_Quaternion.hlsl">
-      <Filter>src\Shaders</Filter>
-    </None>
-    <None Include="..\src\Shaders\AMD_UnitCube.hlsl">
-      <Filter>src\Shaders</Filter>
-    </None>
-    <None Include="..\src\Shaders\SeparableFilter\FilterCommon.hlsl">
-      <Filter>src\Shaders\SeparableFilter</Filter>
-    </None>
-    <None Include="..\src\Shaders\SeparableFilter\FilterKernel.hlsl">
-      <Filter>src\Shaders\SeparableFilter</Filter>
-    </None>
-    <None Include="..\src\Shaders\SeparableFilter\HorizontalFilter.hlsl">
-      <Filter>src\Shaders\SeparableFilter</Filter>
-    </None>
-    <None Include="..\src\Shaders\SeparableFilter\VerticalFilter.hlsl">
-      <Filter>src\Shaders\SeparableFilter</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\common\inc\AMD_Types.h">
@@ -115,5 +92,28 @@
     <ClCompile Include="..\src\DirectXTex\ScreenGrab.cpp">
       <Filter>src\DirectXTex</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\Shaders\AMD_FullscreenPass.hlsl">
+      <Filter>src\Shaders</Filter>
+    </None>
+    <None Include="..\src\Shaders\AMD_Quaternion.hlsl">
+      <Filter>src\Shaders</Filter>
+    </None>
+    <None Include="..\src\Shaders\AMD_UnitCube.hlsl">
+      <Filter>src\Shaders</Filter>
+    </None>
+    <None Include="..\src\Shaders\SeparableFilter\FilterCommon.hlsl">
+      <Filter>src\Shaders\SeparableFilter</Filter>
+    </None>
+    <None Include="..\src\Shaders\SeparableFilter\FilterKernel.hlsl">
+      <Filter>src\Shaders\SeparableFilter</Filter>
+    </None>
+    <None Include="..\src\Shaders\SeparableFilter\HorizontalFilter.hlsl">
+      <Filter>src\Shaders\SeparableFilter</Filter>
+    </None>
+    <None Include="..\src\Shaders\SeparableFilter\VerticalFilter.hlsl">
+      <Filter>src\Shaders\SeparableFilter</Filter>
+    </None>
   </ItemGroup>
 </Project>
