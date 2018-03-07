@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
@@ -23,13 +23,13 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -45,15 +45,15 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\bin\</OutDir>
-    <IntDir>Desktop_2015\x64\Debug\</IntDir>
-    <TargetName>GeometryFX_Sample_Debug_2015</TargetName>
+    <IntDir>Desktop_2017\x64\Debug\</IntDir>
+    <TargetName>GeometryFX_Sample_Debug_2017</TargetName>
     <TargetExt>.exe</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>..\bin\</OutDir>
-    <IntDir>Desktop_2015\x64\Release\</IntDir>
-    <TargetName>GeometryFX_Sample_Release_2015</TargetName>
+    <IntDir>Desktop_2017\x64\Release\</IntDir>
+    <TargetName>GeometryFX_Sample_Release_2017</TargetName>
     <TargetExt>.exe</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -144,19 +144,19 @@ xcopy "..\..\third_party\assimp\lib\assimp_x64_2015.dll"  "..\bin" /H /R /Y &gt;
     <ResourceCompile Include="..\src\ResourceFiles\GeometryFX_Sample.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\AMD_GeometryFX\build\AMD_GeometryFX_2015.vcxproj">
+    <ProjectReference Include="..\..\AMD_GeometryFX\build\AMD_GeometryFX_2017.vcxproj">
       <Project>{E05C77A9-1EE7-4F02-AF03-575FB4829AC5}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\amd_lib\shared\d3d11\build\AMD_LIB_2015.vcxproj">
+    <ProjectReference Include="..\..\amd_lib\shared\d3d11\build\AMD_LIB_2017.vcxproj">
       <Project>{0D2AEA47-7909-69E3-8221-F4B9EE7FCF44}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\framework\d3d11\amd_sdk\build\AMD_SDK_2015.vcxproj">
+    <ProjectReference Include="..\..\framework\d3d11\amd_sdk\build\AMD_SDK_2017.vcxproj">
       <Project>{EBB939DC-98E4-49DF-B1F1-D2E80A11F60A}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\framework\d3d11\dxut\Core\DXUT_2015.vcxproj">
+    <ProjectReference Include="..\..\framework\d3d11\dxut\Core\DXUT_2017.vcxproj">
       <Project>{85344B7F-5AA0-4E12-A065-D1333D11F6CA}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\framework\d3d11\dxut\Optional\DXUTOpt_2015.vcxproj">
+    <ProjectReference Include="..\..\framework\d3d11\dxut\Optional\DXUTOpt_2017.vcxproj">
       <Project>{61B333C2-C4F7-4CC1-A9BF-83F6D95588EB}</Project>
     </ProjectReference>
   </ItemGroup>

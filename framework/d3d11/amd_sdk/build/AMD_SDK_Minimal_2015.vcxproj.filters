@@ -12,14 +12,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\src\Shaders\Line.hlsl">
-      <Filter>src\Shaders</Filter>
-    </None>
-    <None Include="..\src\Shaders\Sprite.hlsl">
-      <Filter>src\Shaders</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="..\inc\AMD_SDK.h">
       <Filter>inc</Filter>
     </ClInclude>
@@ -97,5 +89,13 @@
     <ClCompile Include="..\src\crc.cpp">
       <Filter>src</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\Shaders\Line.hlsl">
+      <Filter>src\Shaders</Filter>
+    </None>
+    <None Include="..\src\Shaders\Sprite.hlsl">
+      <Filter>src\Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

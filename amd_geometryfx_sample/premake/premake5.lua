@@ -65,25 +65,35 @@ project (_AMD_LIBRARY_NAME .. "_Sample")
    floatingpoint "Fast"
 
    -- Specify WindowsTargetPlatformVersion here for VS2015
-   windowstarget (_AMD_WIN_SDK_VERSION)
+   systemversion (_AMD_WIN_SDK_VERSION)
 
    -- Copy DLLs to the local bin directory
    postbuildcommands { amdSamplePostbuildCommands(true, true) }
    postbuildmessage "Copying dependencies..."
 
+   -- Use old assimp libraries for 2017
+   assimpLibraryName = "assimp_%{cfg.platform}%{_AMD_VS_SUFFIX}"
+   if _AMD_VS_SUFFIX == "_2017" then
+      assimpLibraryName = "assimp_%{cfg.platform}_2015"
+   end
+
    files { "../src/**.h", "../src/**.cpp", "../src/**.rc", "../src/**.manifest", "../src/**.hlsl" }
    includedirs { "../src/ResourceFiles", "../../AMD_%{_AMD_LIBRARY_NAME}/inc", "../../amd_lib/shared/common/inc", "../../amd_lib/shared/d3d11/inc", "../../amd_lib/ags_lib/inc", "../../framework/d3d11/amd_sdk/inc", "../../framework/d3d11/dxut/Core", "../../framework/d3d11/dxut/Optional", "../../third_party/assimp/include" }
    libdirs { "../../third_party/assimp/lib", "../../amd_lib/ags_lib/lib" }
-   links { "AMD_%{_AMD_LIBRARY_NAME}", "AMD_LIB", "AMD_SDK", "DXUT", "DXUTOpt", "assimp_%{cfg.platform}%{_AMD_VS_SUFFIX}", "amd_ags_%{cfg.platform}", "d3dcompiler", "dxguid", "winmm", "comctl32", "Usp10", "Shlwapi" }
+   links { "AMD_%{_AMD_LIBRARY_NAME}", "AMD_LIB", "AMD_SDK", "DXUT", "DXUTOpt", assimpLibraryName, "amd_ags_%{cfg.platform}", "d3dcompiler", "dxguid", "winmm", "comctl32", "Usp10", "Shlwapi" }
    defines { "ASSIMP_DLL", "AMD_%{_AMD_LIBRARY_NAME_ALL_CAPS}_COMPILE_DYNAMIC_LIB=1" }
 
    filter "configurations:Debug"
       defines { "WIN32", "_DEBUG", "DEBUG", "PROFILE", "_WINDOWS", "_WIN32_WINNT=0x0601" }
-      flags { "Symbols", "FatalWarnings", "Unicode", "WinMain" }
+      flags { "FatalWarnings" }
+	  symbols "On"
+	  characterset "Unicode"
       targetsuffix ("_Debug" .. _AMD_VS_SUFFIX)
 
    filter "configurations:Release"
       defines { "WIN32", "NDEBUG", "PROFILE", "_WINDOWS", "_WIN32_WINNT=0x0601" }
-      flags { "LinkTimeOptimization", "Symbols", "FatalWarnings", "Unicode", "WinMain" }
+      flags { "LinkTimeOptimization", "FatalWarnings" }
+	  symbols "On"
+	  characterset "Unicode"
       targetsuffix ("_Release" .. _AMD_VS_SUFFIX)
       optimize "On"

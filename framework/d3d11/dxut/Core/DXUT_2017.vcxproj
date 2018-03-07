@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
@@ -11,11 +11,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{EBB939DC-98E4-49DF-B1F1-D2E80A11F60A}</ProjectGuid>
+    <ProjectGuid>{85344B7F-5AA0-4E12-A065-D1333D11F6CA}</ProjectGuid>
     <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>AMD_SDK</RootNamespace>
-    <ProjectName>AMD_SDK</ProjectName>
+    <RootNamespace>DXUT</RootNamespace>
+    <ProjectName>DXUT</ProjectName>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -23,13 +23,13 @@
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -43,24 +43,24 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>..\lib\</OutDir>
-    <IntDir>Desktop_2015\x64\Debug\</IntDir>
-    <TargetName>AMD_SDK_Debug_2015</TargetName>
+    <OutDir>Bin\Desktop_2017\x64\Debug\</OutDir>
+    <IntDir>Bin\Desktop_2017\x64\Debug\</IntDir>
+    <TargetName>DXUT</TargetName>
     <TargetExt>.lib</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>..\lib\</OutDir>
-    <IntDir>Desktop_2015\x64\Release\</IntDir>
-    <TargetName>AMD_SDK_Release_2015</TargetName>
+    <OutDir>Bin\Desktop_2017\x64\Release\</OutDir>
+    <IntDir>Bin\Desktop_2017\x64\Release\</IntDir>
+    <TargetName>DXUT</TargetName>
     <TargetExt>.lib</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>DXUT.h</PrecompiledHeaderFile>
       <WarningLevel>Level4</WarningLevel>
       <TreatWarningAsError>true</TreatWarningAsError>
       <PreprocessorDefinitions>WIN32;_DEBUG;DEBUG;PROFILE;_WINDOWS;_LIB;_WIN32_WINNT=0x0601;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\dxut\Core;..\..\dxut\Optional;..\..\..\..\third_party\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <FloatingPointModel>Fast</FloatingPointModel>
@@ -75,11 +75,11 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>DXUT.h</PrecompiledHeaderFile>
       <WarningLevel>Level4</WarningLevel>
       <TreatWarningAsError>true</TreatWarningAsError>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_LIB;_WIN32_WINNT=0x0601;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\dxut\Core;..\..\dxut\Optional;..\..\..\..\third_party\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -99,37 +99,24 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\inc\AMD_SDK.h" />
-    <ClInclude Include="..\inc\ShaderCacheSampleHelper.h" />
-    <ClInclude Include="..\src\AMD_Mesh.h" />
-    <ClInclude Include="..\src\Geometry.h" />
-    <ClInclude Include="..\src\HUD.h" />
-    <ClInclude Include="..\src\HelperFunctions.h" />
-    <ClInclude Include="..\src\LineRender.h" />
-    <ClInclude Include="..\src\Magnify.h" />
-    <ClInclude Include="..\src\MagnifyTool.h" />
-    <ClInclude Include="..\src\ShaderCache.h" />
-    <ClInclude Include="..\src\Sprite.h" />
-    <ClInclude Include="..\src\Timer.h" />
-    <ClInclude Include="..\src\crc.h" />
+    <ClInclude Include="DDSTextureLoader.h" />
+    <ClInclude Include="DXUT.h" />
+    <ClInclude Include="DXUTDevice11.h" />
+    <ClInclude Include="DXUTmisc.h" />
+    <ClInclude Include="ScreenGrab.h" />
+    <ClInclude Include="WICTextureLoader.h" />
+    <ClInclude Include="dxerr.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\AMD_Mesh.cpp" />
-    <ClCompile Include="..\src\Geometry.cpp" />
-    <ClCompile Include="..\src\HUD.cpp" />
-    <ClCompile Include="..\src\HelperFunctions.cpp" />
-    <ClCompile Include="..\src\LineRender.cpp" />
-    <ClCompile Include="..\src\Magnify.cpp" />
-    <ClCompile Include="..\src\MagnifyTool.cpp" />
-    <ClCompile Include="..\src\ShaderCache.cpp" />
-    <ClCompile Include="..\src\ShaderCacheSampleHelper.cpp" />
-    <ClCompile Include="..\src\Sprite.cpp" />
-    <ClCompile Include="..\src\Timer.cpp" />
-    <ClCompile Include="..\src\crc.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\src\Shaders\Line.hlsl" />
-    <None Include="..\src\Shaders\Sprite.hlsl" />
+    <ClCompile Include="DDSTextureLoader.cpp" />
+    <ClCompile Include="DXUT.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="DXUTDevice11.cpp" />
+    <ClCompile Include="DXUTmisc.cpp" />
+    <ClCompile Include="ScreenGrab.cpp" />
+    <ClCompile Include="WICTextureLoader.cpp" />
+    <ClCompile Include="dxerr.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

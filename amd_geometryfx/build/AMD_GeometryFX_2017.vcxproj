@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="DLL_Debug|Win32">
       <Configuration>DLL_Debug</Configuration>
@@ -55,61 +55,61 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Lib_Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Lib_Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Lib_Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Lib_Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Release_MT|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Release_MT|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -147,67 +147,67 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\lib\VS2015\Win32\DLL_Debug\</OutDir>
-    <IntDir>VS2015\Win32\DLL_Debug\</IntDir>
+    <OutDir>..\lib\VS2017\Win32\DLL_Debug\</OutDir>
+    <IntDir>VS2017\Win32\DLL_Debug\</IntDir>
     <TargetName>GPUOpen_GeometryFX_x86d</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\lib\VS2015\x64\DLL_Debug\</OutDir>
-    <IntDir>VS2015\x64\DLL_Debug\</IntDir>
+    <OutDir>..\lib\VS2017\x64\DLL_Debug\</OutDir>
+    <IntDir>VS2017\x64\DLL_Debug\</IntDir>
     <TargetName>GPUOpen_GeometryFX_x64d</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\lib\VS2015\Win32\DLL_Release\</OutDir>
-    <IntDir>VS2015\Win32\DLL_Release\</IntDir>
+    <OutDir>..\lib\VS2017\Win32\DLL_Release\</OutDir>
+    <IntDir>VS2017\Win32\DLL_Release\</IntDir>
     <TargetName>GPUOpen_GeometryFX_x86</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\lib\VS2015\x64\DLL_Release\</OutDir>
-    <IntDir>VS2015\x64\DLL_Release\</IntDir>
+    <OutDir>..\lib\VS2017\x64\DLL_Release\</OutDir>
+    <IntDir>VS2017\x64\DLL_Release\</IntDir>
     <TargetName>GPUOpen_GeometryFX_x64</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Lib_Debug|Win32'">
-    <OutDir>..\lib\VS2015\Win32\Lib_Debug\</OutDir>
-    <IntDir>VS2015\Win32\Lib_Debug\</IntDir>
+    <OutDir>..\lib\VS2017\Win32\Lib_Debug\</OutDir>
+    <IntDir>VS2017\Win32\Lib_Debug\</IntDir>
     <TargetName>GPUOpen_GeometryFX_x86d</TargetName>
     <TargetExt>.lib</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Lib_Debug|x64'">
-    <OutDir>..\lib\VS2015\x64\Lib_Debug\</OutDir>
-    <IntDir>VS2015\x64\Lib_Debug\</IntDir>
+    <OutDir>..\lib\VS2017\x64\Lib_Debug\</OutDir>
+    <IntDir>VS2017\x64\Lib_Debug\</IntDir>
     <TargetName>GPUOpen_GeometryFX_x64d</TargetName>
     <TargetExt>.lib</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Lib_Release|Win32'">
-    <OutDir>..\lib\VS2015\Win32\Lib_Release\</OutDir>
-    <IntDir>VS2015\Win32\Lib_Release\</IntDir>
+    <OutDir>..\lib\VS2017\Win32\Lib_Release\</OutDir>
+    <IntDir>VS2017\Win32\Lib_Release\</IntDir>
     <TargetName>GPUOpen_GeometryFX_x86</TargetName>
     <TargetExt>.lib</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Lib_Release|x64'">
-    <OutDir>..\lib\VS2015\x64\Lib_Release\</OutDir>
-    <IntDir>VS2015\x64\Lib_Release\</IntDir>
+    <OutDir>..\lib\VS2017\x64\Lib_Release\</OutDir>
+    <IntDir>VS2017\x64\Lib_Release\</IntDir>
     <TargetName>GPUOpen_GeometryFX_x64</TargetName>
     <TargetExt>.lib</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Release_MT|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\lib\VS2015\Win32\DLL_Release_MT\</OutDir>
-    <IntDir>VS2015\Win32\DLL_Release_MT\</IntDir>
+    <OutDir>..\lib\VS2017\Win32\DLL_Release_MT\</OutDir>
+    <IntDir>VS2017\Win32\DLL_Release_MT\</IntDir>
     <TargetName>GPUOpen_GeometryFX_x86</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL_Release_MT|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\lib\VS2015\x64\DLL_Release_MT\</OutDir>
-    <IntDir>VS2015\x64\DLL_Release_MT\</IntDir>
+    <OutDir>..\lib\VS2017\x64\DLL_Release_MT\</OutDir>
+    <IntDir>VS2017\x64\DLL_Release_MT\</IntDir>
     <TargetName>GPUOpen_GeometryFX_x64</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
@@ -229,13 +229,13 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>dxguid.lib;amd_ags_x86.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\..\amd_lib\ags_lib\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <ImportLibrary>..\lib\VS2015\Win32\DLL_Debug\GPUOpen_GeometryFX_x86d.lib</ImportLibrary>
+      <ImportLibrary>..\lib\VS2017\Win32\DLL_Debug\GPUOpen_GeometryFX_x86d.lib</ImportLibrary>
       <TreatLinkerWarningAsErrors>true</TreatLinkerWarningAsErrors>
     </Link>
     <PostBuildEvent>
-      <Command>copy /b "..\lib\VS2015\Win32\DLL_Debug\$(TargetName).lib" +,, "..\lib\VS2015\Win32\DLL_Debug\" &gt; nul
-xcopy "..\lib\VS2015\Win32\DLL_Debug\$(TargetName).dll"  "..\lib" /H /R /Y &gt; nul
-xcopy "..\lib\VS2015\Win32\DLL_Debug\$(TargetName).lib"  "..\lib" /H /R /Y &gt; nul</Command>
+      <Command>copy /b "..\lib\VS2017\Win32\DLL_Debug\$(TargetName).lib" +,, "..\lib\VS2017\Win32\DLL_Debug\" &gt; nul
+xcopy "..\lib\VS2017\Win32\DLL_Debug\$(TargetName).dll"  "..\lib" /H /R /Y &gt; nul
+xcopy "..\lib\VS2017\Win32\DLL_Debug\$(TargetName).lib"  "..\lib" /H /R /Y &gt; nul</Command>
       <Message>Copying build output to lib directory...</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -257,13 +257,13 @@ xcopy "..\lib\VS2015\Win32\DLL_Debug\$(TargetName).lib"  "..\lib" /H /R /Y &gt; 
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>dxguid.lib;amd_ags_x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\..\amd_lib\ags_lib\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <ImportLibrary>..\lib\VS2015\x64\DLL_Debug\GPUOpen_GeometryFX_x64d.lib</ImportLibrary>
+      <ImportLibrary>..\lib\VS2017\x64\DLL_Debug\GPUOpen_GeometryFX_x64d.lib</ImportLibrary>
       <TreatLinkerWarningAsErrors>true</TreatLinkerWarningAsErrors>
     </Link>
     <PostBuildEvent>
-      <Command>copy /b "..\lib\VS2015\x64\DLL_Debug\$(TargetName).lib" +,, "..\lib\VS2015\x64\DLL_Debug\" &gt; nul
-xcopy "..\lib\VS2015\x64\DLL_Debug\$(TargetName).dll"  "..\lib" /H /R /Y &gt; nul
-xcopy "..\lib\VS2015\x64\DLL_Debug\$(TargetName).lib"  "..\lib" /H /R /Y &gt; nul</Command>
+      <Command>copy /b "..\lib\VS2017\x64\DLL_Debug\$(TargetName).lib" +,, "..\lib\VS2017\x64\DLL_Debug\" &gt; nul
+xcopy "..\lib\VS2017\x64\DLL_Debug\$(TargetName).dll"  "..\lib" /H /R /Y &gt; nul
+xcopy "..\lib\VS2017\x64\DLL_Debug\$(TargetName).lib"  "..\lib" /H /R /Y &gt; nul</Command>
       <Message>Copying build output to lib directory...</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -289,13 +289,13 @@ xcopy "..\lib\VS2015\x64\DLL_Debug\$(TargetName).lib"  "..\lib" /H /R /Y &gt; nu
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>dxguid.lib;amd_ags_x86.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\..\amd_lib\ags_lib\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <ImportLibrary>..\lib\VS2015\Win32\DLL_Release\GPUOpen_GeometryFX_x86.lib</ImportLibrary>
+      <ImportLibrary>..\lib\VS2017\Win32\DLL_Release\GPUOpen_GeometryFX_x86.lib</ImportLibrary>
       <TreatLinkerWarningAsErrors>true</TreatLinkerWarningAsErrors>
     </Link>
     <PostBuildEvent>
-      <Command>copy /b "..\lib\VS2015\Win32\DLL_Release\$(TargetName).lib" +,, "..\lib\VS2015\Win32\DLL_Release\" &gt; nul
-xcopy "..\lib\VS2015\Win32\DLL_Release\$(TargetName).dll"  "..\lib" /H /R /Y &gt; nul
-xcopy "..\lib\VS2015\Win32\DLL_Release\$(TargetName).lib"  "..\lib" /H /R /Y &gt; nul</Command>
+      <Command>copy /b "..\lib\VS2017\Win32\DLL_Release\$(TargetName).lib" +,, "..\lib\VS2017\Win32\DLL_Release\" &gt; nul
+xcopy "..\lib\VS2017\Win32\DLL_Release\$(TargetName).dll"  "..\lib" /H /R /Y &gt; nul
+xcopy "..\lib\VS2017\Win32\DLL_Release\$(TargetName).lib"  "..\lib" /H /R /Y &gt; nul</Command>
       <Message>Copying build output to lib directory...</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -321,13 +321,13 @@ xcopy "..\lib\VS2015\Win32\DLL_Release\$(TargetName).lib"  "..\lib" /H /R /Y &gt
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>dxguid.lib;amd_ags_x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\..\amd_lib\ags_lib\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <ImportLibrary>..\lib\VS2015\x64\DLL_Release\GPUOpen_GeometryFX_x64.lib</ImportLibrary>
+      <ImportLibrary>..\lib\VS2017\x64\DLL_Release\GPUOpen_GeometryFX_x64.lib</ImportLibrary>
       <TreatLinkerWarningAsErrors>true</TreatLinkerWarningAsErrors>
     </Link>
     <PostBuildEvent>
-      <Command>copy /b "..\lib\VS2015\x64\DLL_Release\$(TargetName).lib" +,, "..\lib\VS2015\x64\DLL_Release\" &gt; nul
-xcopy "..\lib\VS2015\x64\DLL_Release\$(TargetName).dll"  "..\lib" /H /R /Y &gt; nul
-xcopy "..\lib\VS2015\x64\DLL_Release\$(TargetName).lib"  "..\lib" /H /R /Y &gt; nul</Command>
+      <Command>copy /b "..\lib\VS2017\x64\DLL_Release\$(TargetName).lib" +,, "..\lib\VS2017\x64\DLL_Release\" &gt; nul
+xcopy "..\lib\VS2017\x64\DLL_Release\$(TargetName).dll"  "..\lib" /H /R /Y &gt; nul
+xcopy "..\lib\VS2017\x64\DLL_Release\$(TargetName).lib"  "..\lib" /H /R /Y &gt; nul</Command>
       <Message>Copying build output to lib directory...</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -454,13 +454,13 @@ xcopy "..\lib\VS2015\x64\DLL_Release\$(TargetName).lib"  "..\lib" /H /R /Y &gt; 
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>dxguid.lib;amd_ags_x86.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\..\amd_lib\ags_lib\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <ImportLibrary>..\lib\VS2015\Win32\DLL_Release_MT\GPUOpen_GeometryFX_x86.lib</ImportLibrary>
+      <ImportLibrary>..\lib\VS2017\Win32\DLL_Release_MT\GPUOpen_GeometryFX_x86.lib</ImportLibrary>
       <TreatLinkerWarningAsErrors>true</TreatLinkerWarningAsErrors>
     </Link>
     <PostBuildEvent>
-      <Command>copy /b "..\lib\VS2015\Win32\DLL_Release_MT\$(TargetName).lib" +,, "..\lib\VS2015\Win32\DLL_Release_MT\" &gt; nul
-xcopy "..\lib\VS2015\Win32\DLL_Release_MT\$(TargetName).dll"  "..\lib" /H /R /Y &gt; nul
-xcopy "..\lib\VS2015\Win32\DLL_Release_MT\$(TargetName).lib"  "..\lib" /H /R /Y &gt; nul</Command>
+      <Command>copy /b "..\lib\VS2017\Win32\DLL_Release_MT\$(TargetName).lib" +,, "..\lib\VS2017\Win32\DLL_Release_MT\" &gt; nul
+xcopy "..\lib\VS2017\Win32\DLL_Release_MT\$(TargetName).dll"  "..\lib" /H /R /Y &gt; nul
+xcopy "..\lib\VS2017\Win32\DLL_Release_MT\$(TargetName).lib"  "..\lib" /H /R /Y &gt; nul</Command>
       <Message>Copying build output to lib directory...</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -487,13 +487,13 @@ xcopy "..\lib\VS2015\Win32\DLL_Release_MT\$(TargetName).lib"  "..\lib" /H /R /Y 
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>dxguid.lib;amd_ags_x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\..\amd_lib\ags_lib\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <ImportLibrary>..\lib\VS2015\x64\DLL_Release_MT\GPUOpen_GeometryFX_x64.lib</ImportLibrary>
+      <ImportLibrary>..\lib\VS2017\x64\DLL_Release_MT\GPUOpen_GeometryFX_x64.lib</ImportLibrary>
       <TreatLinkerWarningAsErrors>true</TreatLinkerWarningAsErrors>
     </Link>
     <PostBuildEvent>
-      <Command>copy /b "..\lib\VS2015\x64\DLL_Release_MT\$(TargetName).lib" +,, "..\lib\VS2015\x64\DLL_Release_MT\" &gt; nul
-xcopy "..\lib\VS2015\x64\DLL_Release_MT\$(TargetName).dll"  "..\lib" /H /R /Y &gt; nul
-xcopy "..\lib\VS2015\x64\DLL_Release_MT\$(TargetName).lib"  "..\lib" /H /R /Y &gt; nul</Command>
+      <Command>copy /b "..\lib\VS2017\x64\DLL_Release_MT\$(TargetName).lib" +,, "..\lib\VS2017\x64\DLL_Release_MT\" &gt; nul
+xcopy "..\lib\VS2017\x64\DLL_Release_MT\$(TargetName).dll"  "..\lib" /H /R /Y &gt; nul
+xcopy "..\lib\VS2017\x64\DLL_Release_MT\$(TargetName).lib"  "..\lib" /H /R /Y &gt; nul</Command>
       <Message>Copying build output to lib directory...</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -517,7 +517,7 @@ xcopy "..\lib\VS2015\x64\DLL_Release_MT\$(TargetName).lib"  "..\lib" /H /R /Y &g
     <None Include="..\src\Shaders\AMD_GeometryFX_Filtering.hlsl" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\amd_lib\shared\d3d11\build\AMD_LIB_2015.vcxproj">
+    <ProjectReference Include="..\..\amd_lib\shared\d3d11\build\AMD_LIB_2017.vcxproj">
       <Project>{0D2AEA47-7909-69E3-8221-F4B9EE7FCF44}</Project>
     </ProjectReference>
   </ItemGroup>

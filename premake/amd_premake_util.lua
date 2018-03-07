@@ -22,14 +22,21 @@ _AMD_LIBRARY_DIR_LAYOUT_BACKSLASH = "%{_AMD_ACTION_ALL_CAPS}\\%{cfg.platform}\\%
 _AMD_SAMPLE_DIR_LAYOUT_MINIMAL  = "Desktop%{_AMD_VS_SUFFIX}/minimal/%{cfg.platform}/%{cfg.buildcfg}"
 _AMD_LIBRARY_DIR_LAYOUT_MINIMAL = "%{_AMD_ACTION_ALL_CAPS}/minimal/%{cfg.platform}/%{cfg.buildcfg}"
 
--- Specify WindowsTargetPlatformVersion here for VS2015
+-- Specify WindowsTargetPlatformVersion here for VS2015 and VS2017
 _AMD_WIN_SDK_VERSION = "8.1"
+
+
+-- Use old assimp libraries for 2017
+assimpLibraryName = "assimp_%{cfg.platform}%{_AMD_VS_SUFFIX}"
+if _AMD_VS_SUFFIX == "2017" then
+  assimpLibraryName = "assimp_%{cfg.platform}2015"
+end
 
 -- command lines for Visual Studio build events
 _AMD_COPY_WIN_8_0_SDK_REDIST_TO_BIN = "if not exist \"..\\bin\\d3dcompiler_46.dll\" if exist \"$(ProgramFiles)\\Windows Kits\\8.0\\Redist\\D3D\\x64\\d3dcompiler_46.dll\" xcopy \"$(ProgramFiles)\\Windows Kits\\8.0\\Redist\\D3D\\x64\\d3dcompiler_46.dll\" \"..\\bin\" /H /R /Y > nul"
 _AMD_COPY_WIN_8_1_SDK_REDIST_TO_BIN = "if not exist \"..\\bin\\d3dcompiler_47.dll\" if exist \"$(ProgramFiles)\\Windows Kits\\8.1\\Redist\\D3D\\x64\\d3dcompiler_47.dll\" xcopy \"$(ProgramFiles)\\Windows Kits\\8.1\\Redist\\D3D\\x64\\d3dcompiler_47.dll\" \"..\\bin\" /H /R /Y > nul"
 _AMD_COPY_AGS_RLS_DLL_TO_BIN = "xcopy \"..\\..\\amd_lib\\ags_lib\\lib\\amd_ags_x64.dll\"  \"..\\bin\" /H /R /Y > nul"
-_AMD_COPY_ASSIMP_RLS_DLL_TO_BIN = "xcopy \"..\\..\\third_party\\assimp\\lib\\assimp_x64%{_AMD_VS_SUFFIX}.dll\"  \"..\\bin\" /H /R /Y > nul"
+_AMD_COPY_ASSIMP_RLS_DLL_TO_BIN = "xcopy \"..\\..\\third_party\\assimp\\lib\\%{assimpLibraryName}.dll\"  \"..\\bin\" /H /R /Y > nul"
 
 -- touch the import lib so that the sample build will know the library was updated
 _AMD_TOUCH_IMPORT_LIB = "copy /b \"..\\lib\\%{_AMD_LIBRARY_DIR_LAYOUT_BACKSLASH}\\$(TargetName).lib\" +,, \"..\\lib\\%{_AMD_LIBRARY_DIR_LAYOUT_BACKSLASH}\\\" > nul"
