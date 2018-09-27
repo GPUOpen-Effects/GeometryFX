@@ -275,12 +275,13 @@ public:
         }
     }
 
-    void Render (ID3D11DeviceContext *context,
+    void Render (ID3D11DeviceContext *context, ID3D11ComputeShader *computeClearShader,
         ID3D11ComputeShader *filterShader, ID3D11VertexShader *vertexShader,
         ID3D11ShaderResourceView *vertexData, ID3D11ShaderResourceView *indexData,
         ID3D11ShaderResourceView *meshConstantData, ID3D11Buffer *globalVertexBuffer,
         ID3D11Buffer *perFrameConstantBuffer)
     {
+        ClearIndirectArgsBuffer (context, computeClearShader);
         UpdateDrawCallAndSmallBatchBuffers (context);
         Filter (context, filterShader, vertexData, indexData, meshConstantData,
             perFrameConstantBuffer);
@@ -340,7 +341,7 @@ private:
         context->CSSetConstantBuffers (1, 1, csCBs);
 
         context->CSSetShader (filterShader, nullptr, 0);
-
+        
         context->Dispatch (currentBatchCount_, 1, 1);
 
         csUAVs[0] = nullptr;
@@ -511,6 +512,20 @@ private:
         currentBatchCount_ = 0;
         currentDrawCallCount_ = 0;
         faceCount_ = 0;
+    }
+
+    void ClearIndirectArgsBuffer (
+        ID3D11DeviceContext *context, ID3D11ComputeShader *computeClearShader) const
+    {
+        ID3D11UnorderedAccessView *uavViews[] = { indirectArgumentsUAV_.Get () };
+        UINT initialCounts[] = { 0 };
+        context->CSSetUnorderedAccessViews (1, 1, uavViews, initialCounts);
+        context->CSSetShader (computeClearShader, nullptr, 0);
+        context->Dispatch (currentBatchCount_, 1, 1);
+
+        uavViews[0] = nullptr;
+
+        context->CSSetUnorderedAccessViews (0, 1, uavViews, initialCounts);
     }
 
     ComPtr<ID3D11Buffer> smallBatchDataBuffer_;
@@ -805,6 +820,8 @@ private:
 
     std::vector<std::unique_ptr<SmallBatchChunk>> smallBatchChunks_;
 
+    ComPtr<ID3D11ComputeShader> clearDrawIndirectArgumentsComputeShader_;
+
     ComPtr<ID3D11Buffer> indirectArgumentsBuffer_;
     ComPtr<ID3D11Buffer> indirectArgumentsBufferPristine_;
     ComPtr<ID3D11UnorderedAccessView> indirectArgumentsUAV_;
@@ -821,6 +838,7 @@ private:
         depthOnlyVertexShaderMID_ = ComPtr<ID3D11VertexShader>();
         depthOnlyLayoutMID_ = ComPtr<ID3D11InputLayout>();
         filterComputeShader_ = ComPtr<ID3D11ComputeShader>();
+        clearDrawIndirectArgumentsComputeShader_ = ComPtr<ID3D11ComputeShader>();
 
         static const D3D11_INPUT_ELEMENT_DESC depthOnlyLayout[] =
         {
@@ -841,6 +859,11 @@ private:
             sizeof(AMD_GeometryFX_DepthOnlyMultiIndirectVS), AMD_GeometryFX_DepthOnlyMultiIndirectVS,
             ShaderType::Vertex, &depthOnlyLayoutMID_, ARRAYSIZE(depthOnlyLayoutMID),
             depthOnlyLayoutMID);
+
+        CreateShader(device_,
+            (ID3D11DeviceChild **)clearDrawIndirectArgumentsComputeShader_.GetAddressOf(),
+            sizeof(AMD_GeometryFX_ClearDrawIndirectArgsCS), AMD_GeometryFX_ClearDrawIndirectArgsCS,
+            ShaderType::Compute);
 
         CreateShader(device_, (ID3D11DeviceChild **)filterComputeShader_.GetAddressOf(),
             sizeof(AMD_GeometryFX_FilterCS), AMD_GeometryFX_FilterCS, ShaderType::Compute);
@@ -933,6 +956,20 @@ private:
         SetDebugName(frameConstantBuffer_.Get(), "[AMD GeometryFX Filtering] PerFrameConstantBuffer");
     }
 
+    void ClearIndirectArgsBuffer(ID3D11DeviceContext *context) const
+    {
+        ID3D11UnorderedAccessView *uavViews[] = { indirectArgumentsUAV_.Get() };
+        UINT initialCounts[] = { 0 };
+        context->CSSetUnorderedAccessViews(1, 1, uavViews, initialCounts);
+        context->CSSetShader(clearDrawIndirectArgumentsComputeShader_.Get(), nullptr, 0);
+        context->Dispatch(
+            static_cast<UINT>(RoundToNextMultiple(meshManager_->GetMeshCount(), 256)), 1, 1);
+
+        uavViews[0] = nullptr;
+
+        context->CSSetUnorderedAccessViews(0, 1, uavViews, initialCounts);
+    }
+
     void RenderGeometryDefault(ID3D11DeviceContext *context, FilterContext & /* filterContext */) const
     {
         assert(context);
@@ -1009,6 +1046,7 @@ private:
 
                 // Overflow, submit this batch and continue with next one
                 smallBatchChunks_[currentSmallBatchChunk]->Render(context,
+                    clearDrawIndirectArgumentsComputeShader_.Get(),
                     filterComputeShader_.Get(),
                     vertexShader, meshManager_->GetVertexBufferSRV(),
                     meshManager_->GetIndexBufferSRV(), meshManager_->GetMeshConstantsBuffer(),
@@ -1042,6 +1080,7 @@ private:
         }
 
         smallBatchChunks_[currentSmallBatchChunk]->Render(context,
+            clearDrawIndirectArgumentsComputeShader_.Get(),
             filterComputeShader_.Get(),
             vertexShader, meshManager_->GetVertexBufferSRV(), meshManager_->GetIndexBufferSRV(),
             meshManager_->GetMeshConstantsBuffer(), meshManager_->GetVertexBuffer(),

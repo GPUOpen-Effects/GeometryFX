@@ -254,14 +254,8 @@ void FilterCS(
     uint3 inGroupId : SV_GroupThreadID,
     uint3 groupId : SV_GroupID )
 {
-    uint batchDrawIndex = smallBatchData[groupId.x].drawIndex;
-    
     if (inGroupId.x == 0)
     {
-        if (groupId.x == smallBatchData [groupId.x].drawBatchStart) {
-            indirectArgs[batchDrawIndex * 5] = 0;
-        }
-
         workGroupIndexCount = 0;
     }
 
@@ -273,6 +267,7 @@ void FilterCS(
     uint batchMeshIndex = smallBatchData [groupId.x].meshIndex;
     uint batchInputIndexOffset = (meshConstants [batchMeshIndex].indexOffset + smallBatchData [groupId.x].indexOffset) / 4;
     uint batchInputVertexOffset = meshConstants [batchMeshIndex].vertexOffset;
+    uint batchDrawIndex = smallBatchData[groupId.x].drawIndex;
     
     if (inGroupId.x < smallBatchData [groupId.x].faceCount)
     {
@@ -325,4 +320,15 @@ void FilterCS(
         indirectArgs [batchDrawIndex * 5 + 4] = batchDrawIndex;
     }
 }
+
+#define CLEAR_THREAD_COUNT 256
+
+[numthreads (CLEAR_THREAD_COUNT, 1, 1)]
+void ClearDrawIndirectArgsCS (uint3 id : SV_DispatchThreadID)
+{
+    // Note: need to clear in a seperate pass because the order of
+    // invocations of FilterCS() in a dispatch is not determinate
+    indirectArgs[id.x * 5 + 0] = 0;
+}
+
 #endif
